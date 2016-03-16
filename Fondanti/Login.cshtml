@@ -1,0 +1,84 @@
+﻿@{
+    
+    // Voor de Sessie
+    bool aangemeld = false;
+    if (Session["Aanmelding"] != null)
+    {
+      aangemeld = true;
+    }
+
+    // Connectie Database
+    var db = Database.Open("Fondanti");
+
+    // Check of er een waarde is ingevuld.
+    Validation.RequireField("user", "Er is geen gebruikersnaam ingevoerd.");
+    Validation.RequireField("pass", "Er is geen wachtwoord ingevoerd.");
+
+    var user ="";
+    var pass ="";
+    var selectCommand ="";
+
+
+     if (IsPost && Validation.IsValid() && aangemeld == false){
+        user = Request.Form["user"];
+        pass = Request.Form["pass"];
+
+        // Checkt of combinatie goed is
+
+                selectCommand = "SELECT ID FROM Account WHERE User01 = @0 and Pass01 = @1";
+                var selectID = db.QueryValue(selectCommand, user, pass);
+                    
+                    if (selectID != null){
+                    // Is juist, mag door
+                    Session["Aanmelding"] = selectID;
+                    Response.Redirect("~/Admin"); 
+                    }
+                    else
+                    {
+                        selectCommand = "SELECT ID FROM Account WHERE User01 = @0";
+                        var selectID2 = db.QueryValue(selectCommand, user);
+                        
+                        if (selectID2 != null){
+                        // Email adres is bekend
+                        Validation.AddFormError("De combinatie met gebruikersnaam & wachtwoord is onjuist.");
+                        }
+                        else{
+                        Validation.AddFormError("Gebruikernaam is niet bekend.. Probeer het opnieuw");
+                        }
+
+                    }
+    }
+
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Aanmelden</title>
+        <link href="Stylesheet.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div class="Logindiv">
+            @if(!aangemeld){
+            <form method="post">
+                <h2>Aanmelden voor Administrator</h2>
+                <b>Gebruikersnaam:</b> <input type="text" name="user"><p></p>
+                <b>Wachtwoord:</b> <input type="password" name="pass"><p></p>
+                <input class="orangebutton" type="submit" value="Aanmelden">
+
+            </form>
+            }else{
+                <br><br>
+                <p>U bent al aangemeld!</p>
+                <br>
+                <p>
+                Klik <a href="~/Admin">hier</a> om naar de Admin pagina te gaan.
+                </p>
+            }
+            @Html.ValidationSummary()
+        
+        </div>
+    </body>
+</html>

@@ -1,0 +1,168 @@
+﻿@{    
+
+    // Connectie Database
+    var db = Database.Open("Fondanti");
+
+    // Voor de Sessie
+        bool aangemeld = false;
+        if (Session["Aanmelding"] != null){
+        aangemeld = true;
+        }
+
+    Validation.RequireField("Type", "Er is geen type ingevoerd");
+    Validation.RequireField("Product", "Er is geen product ingevoerd");
+    Validation.RequireField("Prijs", "Er is geen prijs ingevoerd");
+
+    // Variabelen
+    var message ="";
+    var Product = "";
+    var type ="";
+    var prijs= 0;
+    var product1 ="";
+    var selectCommand ="";
+    var tekst ="Een product toevoegen";
+    var tekstsubmit ="Voeg dit product toe!";
+    
+    
+    if (!Request.QueryString["deleteID"].IsEmpty() && Request.QueryString["deleteID"].IsInt()){
+        var deleteID = Request.QueryString["deleteID"];
+        var deleteCommand = "DELETE FROM VOORRAAD WHERE ID = @0";
+        db.Execute(deleteCommand, deleteID);
+        Response.Redirect("~/Admin");
+
+    }
+    // Om te editen
+
+    if (Request.QueryString["ID"].IsInt()){
+        tekst ="Een product veranderen";
+        tekstsubmit ="Verander dit product!";
+        var changeID = Request.QueryString["ID"];
+
+        // Voor placeholder
+        var dbCommand = "SELECT * FROM VOORRAAD WHERE ID = @0";
+        var row = db.QuerySingle(dbCommand, changeID);
+        type = row.Type;
+        product1 = row.Product;
+        prijs = Convert.ToInt32(row.Prijs);
+    }
+
+    if (IsPost && Validation.IsValid() && aangemeld == true && Request.QueryString["ID"].IsInt()){
+        var changeID = Request.QueryString["ID"];
+        Product = Request.Form["Product"];
+        int Prijs = Convert.ToInt32(Request.Form["Prijs"]);
+        string Type = Request.Form["Type"];
+        
+       // Alles updaten
+       var updateCommand = "UPDATE VOORRAAD SET Type = @0 WHERE ID= @1";
+       db.Execute(updateCommand, Type, changeID);
+       updateCommand = "UPDATE VOORRAAD SET Product = @0 WHERE ID= @1";
+       db.Execute(updateCommand, Product, changeID);
+       updateCommand = "UPDATE VOORRAAD SET Prijs = @0 WHERE ID= @1";
+       db.Execute(updateCommand,Prijs, changeID);
+       // GET weghalen
+       Response.Redirect("~/Admin");
+       
+    }
+    // Om een nieuwe toe te voegen
+   if (IsPost && Validation.IsValid() && aangemeld == true && Request.QueryString["ID"].IsEmpty()){
+        Product = Request.Form["Product"];
+        int Prijs = Convert.ToInt32(Request.Form["Prijs"]);
+        string Type = Request.Form["Type"];
+
+        string selectVolgorde = "SELECT ID FROM VOORRAAD WHERE Product = @0 and Type = @1";
+        var selectID = db.QueryValue(selectVolgorde, Product, Type);
+
+        if (selectID == null){
+         // Bestaat nog niet dus kan uitvoeren
+            var insertCommand = "INSERT INTO VOORRAAD (Type, Product, Prijs) VALUES(@0, @1, @2)";
+            db.Execute(insertCommand, Type, Product, Prijs);
+            
+        }
+        else{ 
+        Validation.AddFormError("Deze volgorde is al een keer gebruikt, voer een andere in.");  
+        }
+     }
+
+       // Zodat boven nog tabel ziet met huidige wensen
+       var selectAlles = "SELECT * FROM VOORRAAD";
+       var selectData = db.Query(selectAlles);
+       var grid = new WebGrid(source: selectData, defaultSort: "Type");
+
+        // Voor uitloggen
+        if (!Request.QueryString["Command"].IsEmpty()){
+        if (Request.QueryString["Command"]=="afmelden"){
+               
+               if (Session["Aanmelding"] != null){
+               Session["Aanmelding"] = null;
+               message="U bent afgemeld!";
+               }else{
+               message="U bent nog niet ingelogd.. ";
+               }
+               Response.Redirect("~/Login");
+        }
+    }
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>  
+        <meta charset="utf-8" />
+        <title>Wijzigingen doorsturen.</title>
+        <link href="Stylesheet.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+       <div class="Logindiv">
+        @if(aangemeld == true){
+            
+             @Html.ValidationSummary()
+        
+        @grid.GetHtml(
+        tableStyle: "grid",
+        headerStyle: "head",
+        alternatingRowStyle: "alt",
+        columns: grid.Columns(
+        grid.Column("Type"),
+        grid.Column("Product"),
+        grid.Column("Prijs"),
+        grid.Column(format: @<a href="~/Admin?ID=@item.ID">Edit</a>),
+        grid.Column(format: @<a href="~/Admin?deleteID=@item.ID">Verwijderen</a>)
+        
+        )
+      )
+        
+         <form method="post">
+         <br><br>
+         <fieldset>
+         <legend>@tekst</legend>
+         
+          <p><label for="Type">Type:</label>
+            <input type="text" name="type" value="@type">
+            @Html.ValidationMessage("Type")
+         </p>
+         
+
+         <p><label for="product">Product:</label>
+            <input type="text" name="product" value="@product1">
+            @Html.ValidationMessage("Product")
+         </p>
+
+         <p><label>Prijs:</label>
+            <input type="number" name="prijs" value="@prijs">
+             @Html.ValidationMessage("Prijs")
+         </p>
+
+        <p><input type="submit" name="submitButton" value="@tekstsubmit"></p>
+        
+        
+        </fieldset>
+        </form>
+        <p></p>
+        <a href="~/Admin?Command=afmelden" class="bluebutton">Afmeleden</a>
+        }else{
+        <p>U moet zich eerst <a href="~/Login">Aanmelden</a>.</p>
+        }
+       
+       </div>
+    </body>
+</html>
