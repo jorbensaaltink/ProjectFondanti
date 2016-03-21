@@ -79,22 +79,6 @@
             count=0;
         }
     }
-    WebImage photo = null;
-    var newFileName = "";
-    var imagePath = "";
-    if(IsPost){
-        photo = WebImage.GetImageFromRequest();
-        if(photo != null){
-            newFileName = Guid.NewGuid().ToString() + "_" +
-               Path.GetFileName(photo.FileName);
-            imagePath = @"images\" + newFileName;
-
-            photo.Save(@"~\" + imagePath);
-        }
-        var imageput = "INSERT INTO Image (Image) VALUES (@0)";
-        db.Execute(imageput, newFileName);
-    }
-
 }
 
 <!DOCTYPE html>
@@ -129,12 +113,6 @@
                     <label for="Image">Image</label>
                     <input type="file" name="Image" />
                     <br/>
-                    <input type="submit" value="Upload" />
-                @if(imagePath != ""){
-                    <div class="result">
-                    <img src="@imagePath" alt="image" />
-                    </div>
-                    }
 
             <p>
                 <label>Thema:</label>
