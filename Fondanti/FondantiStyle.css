@@ -21,6 +21,7 @@ body{
     position: relative;
     top: 1px;
     float: right;
+    left: 50px;
 }
 span{
   line-height: 47.25px;
@@ -35,6 +36,10 @@ form{
 .result{
     width: 50px;
     height: 50px;
+}
+a.noline {
+text-decoration: none;
+
 }
 
 /* Button Button Button */
@@ -64,7 +69,7 @@ form{
 	font-weight:bold;
 	font-style:normal;
 	height:33px;
-	line-height:33px;
+	line-height:30px;
 	width:34px;
 	text-decoration:none;
 	text-align:center;
@@ -103,7 +108,7 @@ form{
 	font-weight:bold;
 	font-style:normal;
 	height:33px;
-	line-height:33px;
+	line-height:30px;
 	width:34px;
 	text-decoration:none;
 	text-align:center;
@@ -142,7 +147,7 @@ form{
 	font-weight:bold;
 	font-style:normal;
 	height:36px;
-	line-height:36px;
+	line-height:33px;
 	width:82px;
 	text-decoration:none;
 	text-align:center;
