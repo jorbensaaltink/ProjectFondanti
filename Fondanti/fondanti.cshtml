@@ -128,44 +128,20 @@
                 <label>Aantal personen:</label>
                 <input id="aantalPersonenInput" type="number" onchange="buttonCheck()">
             </p>
-            <div id="laag1">
-                <p>
-                    <label>Laag 1:</label> 
-                    <button id="addButton" type="button" onclick="addLaag()">+</button>
-                    <button id="removeButton" type="button" onclick="removeLaag()">-</button>
-                    <a id="laagToevoegenText">Uw kunt 1 laag extra toevoegen per 15 personen.</a>
-                </p>
-
-                <p>
-                    <label>Type cake laag 1:</label>
-                    <select name ="test" form="test">
-                        <option value=""></option>
-                        @foreach(var x in Cake){
-                            <option value="@x">@x</option>
-                        }
-                    </select> 
-                </p>
-
-                <p>
-                    <label>Type bekleding laag 1:</label>
-                    <select name ="test" form="test">
-                        <option value=""></option>
-                        @foreach(var x in Bekleding){
-                            <option value="@x">@x</option>
-                        }
-                    </select>
-                </p>
-            
-                <p>
-                    <label>Type vulling laag 1:</label>
-                    <select name ="test" form="test">
-                        <option value=""></option>
-                        @foreach(var x in Vulling){
-                            <option value="@x">@x</option>
-                        }
-                    </select> 
-                </p>
+                <div id="laag1">
+                    <p>
+                        <label>Laag 1:</label> 
+                        <button id="addButton" type="button" onclick="addLaag()">+</button>
+                        <button id="removeButton" type="button" onclick="removeLaag()">-</button>
+                        <a id="laagToevoegenText">Uw kunt 1 laag extra toevoegen per 15 personen.</a>
+                    </p>
+                </div>
             </div>
+
+            <div id="taartDiv" style="width: 25%; text-align: center; position: fixed; left: 50%; line-height: 0%">
+                
+            </div>
+            
 
             <p><label>Type Niveau decoratie:</label>
                <select name ="test" form="test">
@@ -221,14 +197,12 @@
 </html>
 
 <script>
-
-
     // lagen maken
-    var cake = ["", "Biscuitdeeg (1 euro pp)", "Chocolate (2 euro pp)", "Red velvet (3 euro pp)"];
-    var bekleding = ["", "Fondant (1 euro pp", "Marsepein (3 euro pp)", "Beide (4 euro pp)"];
-    var vulling = ["", "Kindervulling (Vruchten met compote room) (1 euro pp)", "Gele room met oreo vulling (2 euro pp)", "Champagneroom met verse frambozen (3 euro pp)"];
+    var cake = ["Biscuitdeeg (1 euro pp)", "Chocolate (2 euro pp)", "Red velvet (3 euro pp)"];
+    var bekleding = ["Fondant (1 euro pp)", "Marsepein (3 euro pp)", "Beide (4 euro pp)"];
+    var vulling = ["Kindervulling (1 euro pp)", "Gele room met oreo vulling (2 euro pp)", "Champagneroom met frambozen (3 euro pp)"];
 
-    var currentLaag = 1;
+    var currentLaag = 0;
     var aantalPersonen = 0;
 
     var laagDiv = document.getElementById("laag1");
@@ -282,6 +256,8 @@
         buttonCheck();
     }
 
+
+
     // remove 1 laag
     function removeLaag() {
         //verwijdert de laatste laag
@@ -299,19 +275,49 @@
         buttonCheck();
     }
 
+    function taartVoorbeeld() {
+        // haal alles uit de taartdiv
+        document.getElementById("taartDiv").innerHTML = "";
+        var percentages = ["100%", "80%", "60%", "40%", "20%"];
+
+        //voeg alle lagen omgekeert toe zodat ze op elkaar stapelen
+        for (var i = currentLaag; i > 0; i--) {
+            var d = document.createElement("div");
+            var taartDiv = document.getElementById("taartDiv");
+            d.style.border = "1px solid black";
+            d.style.backgroundColor = "purple";
+            d.className = "elementsLaag" + i;
+            d.style.width = percentages[i - 1];
+            d.style.marginLeft = "auto";
+            d.style.marginRight = "auto";
+            
+
+            taartDiv.appendChild(d);
+
+            for (var j = 0; j < 3; j++) {
+                var p = document.createElement("p");
+                d.appendChild(p);
+
+                p.textContent = document.getElementById("option" + (j + 1) + "laag" + i).value;
+            }
+        }
+    }
+
     //voegt een laag toe
     function addLaag() {
         currentLaag = currentLaag + 1;
 
         //label
-        var para = document.createElement("p");
-        laagDiv.appendChild(para);
-        para.className = "elementsLaag" + currentLaag;
+        if (currentLaag > 1) {
+            var para = document.createElement("p");
+            laagDiv.appendChild(para);
+            para.className = "elementsLaag" + currentLaag;
 
-        var label = document.createElement("label");
-        label.textContent = "Laag " + currentLaag + ":";
-        label.className = "elementsLaag" + currentLaag;
-        para.appendChild(label);
+            var label = document.createElement("label");
+            label.textContent = "Laag " + currentLaag + ":";
+            label.className = "elementsLaag" + currentLaag;
+            para.appendChild(label);
+        }
 
 
         // laag 1
@@ -326,12 +332,15 @@
 
         var selectList = document.createElement("select");
         selectList.className = "elementsLaag" + currentLaag;
+        selectList.id = "option1laag" + currentLaag;
         para.appendChild(selectList);
+        selectList.setAttribute('onchange', 'taartVoorbeeld()');
 
         for (var i = 0; i < cake.length; i++) {
             var option = document.createElement("option");
             option.value = cake[i];
             option.text = cake[i];
+            option.id = "option1" + i + currentLaag;
             selectList.appendChild(option);
         }
 
@@ -347,12 +356,15 @@
 
         var selectList = document.createElement("select");
         selectList.className = "elementsLaag" + currentLaag;
+        selectList.id = "option2laag" + currentLaag;
         para.appendChild(selectList);
+        selectList.setAttribute('onchange', 'taartVoorbeeld()');
 
         for (var i = 0; i < bekleding.length; i++) {
             var option = document.createElement("option");
             option.value = bekleding[i];
             option.text = bekleding[i];
+            option.id = "option2" + i + currentLaag;
             selectList.appendChild(option);
         }
 
@@ -368,16 +380,29 @@
 
         var selectList = document.createElement("select");
         selectList.className = "elementsLaag" + currentLaag;
+        selectList.id = "option3laag" + currentLaag;
         para.appendChild(selectList);
+        selectList.setAttribute('onchange', 'taartVoorbeeld()');
 
         for (var i = 0; i < vulling.length; i++) {
             var option = document.createElement("option");
             option.value = vulling[i];
             option.text = vulling[i];
+            option.id = "option3" + i + currentLaag;
             selectList.appendChild(option);
         }
 
+
+
+
         //doe een buttoncheck
         buttonCheck();
+
+        taartVoorbeeld();
     }
+
+    addLaag();
+
+
 </script>
+
