@@ -1,6 +1,7 @@
 ﻿@{
     // Connectie Database
     var db = Database.Open("Fondanti");
+    Layout="~/Layout.cshtml";
 
     // Zodat boven nog tabel ziet met huidige wensen
 
@@ -81,15 +82,6 @@
     }
 }
 
-<!DOCTYPE html>
-
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link href="FondantiStyle.css" rel="stylesheet" type="text/css">
-        <title></title>
-    </head>
-    <body>
             <div id="top-header">
             <div class="content-center"><a href="http://www.fondanti.nl/"><img src="img/fondanti-logo.png" alt="Fondanti logo"/></a>
             <div id="header-phone-number">
@@ -215,10 +207,10 @@
             <input type="image">
             </p>
 
-            <p> <input type="submit"value="Bevestig informatieverzoek"></p>
+            <p> 
+                <input type="submit"value="Bevestig informatieverzoek">
+            </p>
         </form>      
-    </body>
-</html>
 
 <script>
 
