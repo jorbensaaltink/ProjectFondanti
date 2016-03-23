@@ -1,4 +1,18 @@
 <?php
+    $name = $_GET["name"];
+    $thema= $_GET["thema"];
+    $cake= $_GET["cake"];
+    $mail = $_GET["mail"];
+
+    // Mail functie 
+    if (isset $_GET["name"]){
+       
+        mail($mail,"Fondanti Order","
+        Hierbij een bevesteging van uw bestelling:
+    
+        Thema: " + $thema + 
+        "Cake: " + $cake + ,Beste " + $name + ");
+    }
 
 ?>
 
