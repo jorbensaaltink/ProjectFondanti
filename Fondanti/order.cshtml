@@ -1,7 +1,14 @@
 ﻿@{
-    // Connectie Database
+    // Voor de Database
     var db = Database.Open("Fondanti");
-    Layout="~/_Layout.cshtml";
+
+    // Algemene variabelen
+    int count = 0;
+    int numb = 0;
+    List <string> lijstCake = new List<string>{ "cake1","cake2", "cake3", "cake4", "cake5" };
+    List <string> lijstBekleding = new List<string>{ "bekleding1","bekleding2", "bekleding3", "bekleding4", "bekleding5" };
+    List <string> lijstVulling = new List<string>{ "vulling1","vulling2", "vulling3", "vulling4", "vulling5" };
+    
 
     // Zodat boven nog tabel ziet met huidige wensen
 
@@ -11,9 +18,16 @@
     List<string> Bekleding = new List<string>();
     List<string> Decoratie = new List<string>();
     
+    List<string> VullingPr = new List<string>();
+    List<string> CakePr = new List<string>();
+    List<string> BekledingPr = new List<string>();
+    List<string> DecoratiePr = new List<string>();
+    
     List<string> Type = new List<string>(){"Thema", "Vulling", "Cake", "Bekleding", "Decoratie" };
 
-    int count =0;
+    if (IsPost){
+        Response.Redirect("ConfirmationPage");
+    }
 
     foreach(var x in Type){
         
@@ -38,10 +52,8 @@
                  
             }
             foreach(var rowprijs in rowsprijs){
-                Vulling[count] += " ";Vulling[count] += rowprijs.Prijs;
-                count++;
+                VullingPr.Add(rowprijs.Prijs);
             }
-            count=0;
         }
         // Voor Cake
         if (x == "Cake"){
@@ -50,10 +62,8 @@
                  
             }
             foreach(var rowprijs in rowsprijs){
-                Cake[count] += " ";Cake[count] += rowprijs.Prijs;
-                count++;
+                CakePr.Add(rowprijs.Prijs);
             }
-            count=0;
         }
         // Voor Bekleding
         if (x == "Bekleding"){
@@ -62,10 +72,8 @@
                  
             }
             foreach(var rowprijs in rowsprijs){
-                Bekleding[count] += " ";Bekleding[count] += rowprijs.Prijs;
-                count++;
+                BekledingPr.Add(rowprijs.Prijs);
             }
-            count=0;
         }
         // Voor Decoratie
         if (x == "Decoratie"){
@@ -74,39 +82,77 @@
                  
             }
             foreach(var rowprijs in rowsprijs){
-                Decoratie[count] += " ";Decoratie[count] += rowprijs.Prijs;
-                count++;
+                DecoratiePr.Add(rowprijs.Prijs);
             }
-            count=0;
+
         }
     }
 
 }
 
-            <div id="top-header">
-            <div class="content-center"><a href="http://www.fondanti.nl/"><img src="img/fondanti-logo.png" alt="Fondanti logo"/></a>
-            <div id="header-phone-number">
-                <p>
-                    <a href="http://www.facebook.com/fondanti">
-                        <img style="height: 50px; width: 50px;" src="img/facebook_logo.png" alt="Fondanti on Facebook"/></a>
-                    <a href="tel:+31616064485" class="noline">
-                        <img style="height: 50px; width: 50px;" src="img/white_phone.png" alt="white phone"/>
-                        <span>0616064485</span></a>
-                </p>
-            </div>
-            </div>
-    </div>
-    <form method="post">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="trouwtaarten, trouwen, taart, kindertaart, cupcakes, feest, custom, mooi, handgemaakt, kwaliteit, lekker, heerlijk, fondanti, ijlst, friesland">
+    <meta name="description" content="Fondanti maakt unieke taarten en cupcakes die er niet alleen fantastisch uit zien maar ook heerlijk smaken.">
+    <meta id="myViewport" name="viewport" content="width=device-width, initial-scale=1">
 
-            <input id="resetButton" type="reset" value="Reset" onclick="removeAlleLagen()">
+    <title>Fondanti - Fabulous cakes</title>
+    
+    <link href="css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="css/fondanti.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/FondantiStyle.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/JScript.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+</head>
+<body>
+    <div id="top-header">
+        <div class="content-center">
+            <div id="header-logo"><img src="img/fondanti-logo.png" alt="Fondanti logo"/></div>
+            <div id="header-phone-number"><p><a href="order.cshtml"><img src="img/image.png" alt="Bestellen"></a><a href="http://www.facebook.com/fondanti"><img src="img/facebook_logo.png" alt="Fondanti on Facebook"/></a><a href="tel:+31616064485"><img src="img/white_phone.png" alt="white phone"/><span>0616064485</span></a></p></div>
+        </div>
+    </div>
+
+    <div class="content-box" id="fondanti-content-box">
+        <div class="main-background-image" id="fondanti-main-background"><img src="img/bg_verjaardag_taart_bep.jpg" alt="verjaardagstaart"/></div>
+        <div class="content-center">
+            <div class="text-box" id="fondanti-text">
+                <h2>Fondanti</h2>
+                <p class="bigger">Maak hier uw verlopige bestelling, zo komt u direct in contact met Fondanti & heeft u meteen een idee wat het gaat kosten.</p>
+                <p class="bigger">Wilt u voorbeelden zien? Klik dan <a href="https://www.facebook.com/fondanti/photos_albums">hier.</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-box" id="wedding-cake-content-box">
+        <div class="main-background-image" id="wedding-cake-main-background"><img src="img/bg_wedding_cake.jpg" alt="trouwtaart"/></div>
+        <div class="content-center"><div class="adjustment">
+                
+    <form method="post">
+        <br><br><br>
         <div id="Stap1">
+                    
                     <h2>Stap 1: De samenstelling</h2>
             
+            
+            <!--------- Taart voor display ----------->
+            <div class="taartbox">
+                <div class="middle">
+                    <div id="taartDiv" style="width: 450px; text-align: center;  line-height: 0%">
+                    </div>
+                </div>
+            </div>
+            
+            
+            <p>
                 <label>Inspiratieafbeelding uploaden:</label>
                     <label for="Image">Image</label>
                     <input type="file" name="Image" />
                     <br/>
-
+            </p>
             <p>
                 <label>Thema:</label>
                     <select name ="test">
@@ -122,6 +168,13 @@
                 <label>Aantal personen:</label>
                 <input id="aantalPersonenInput" type="number" onchange="buttonCheck()">
             </p>
+
+            <!------ Om van Razor na Javascipt te gaan  -------->
+            
+                <!------ Cake  -------->
+
+            <!----------------- Einde -------------------------->
+
                 <div id="laag1">
                     <p>
                         <label>Laag 1:</label> 
@@ -130,12 +183,17 @@
                         <a id="laagToevoegenText">Uw kunt 1 laag extra toevoegen per 15 personen.</a>
                     </p>
                 </div>
+
+            
+
             <p><label>Type Niveau decoratie:</label>
                <select name ="test" form="test">
                <option value=""></option>
                @foreach(var x in Decoratie){
-                    <option value="@x">@x</option>
+                    <option value="@x">@x @DecoratiePr[count]</option>
+                    @(count++)
                }
+                @(count =0)
                </select>  </p>
 
             <p><label>Allergieen:</label>
@@ -149,12 +207,19 @@
             <p><label>Gewenste opleverdatum:</label>
                <input type="date">
             </p>
-
-            <strong><label>Opmerkingen:</label></strong>
             <p>
+            <label>Opmerkingen:</label>
+            
             <input type="text" style="width: 800px;">
+            <input id="resetButton" type="reset" value="Reset" onclick="removeAlleLagen()">
             </p>
         </div>
+        </div></div>
+    </div>
+    <div class="content-box" id="kids-cake-content-box">
+        <div class="main-background-image" id="kids-cake-main-background"><img src="img/bg_kindertaart.jpg" alt="Princessen kindertaart"/></div>
+        <div class="content-center">
+            
         <div id="Stap2">
             <h2>Stap 2: Uw gegevens</h2>
            
@@ -175,28 +240,62 @@
                <input type="email" style="width: 200px;"> </p>
 
             <strong><label>Voorbeeld:</label></strong>
-            <div id="taartDiv"></div>
+            <p style="border: 1px solid black; height: 200px; width: 200px">
+            <input type="image">
+            </p>
 
             <p> 
-                <input type="submit"value="Bevestig informatieverzoek">
+                <input type="submit" value="Bevestig informatieverzoek">
             </p>
         </div>
-
-            
+        
+        
         </form>      
+        </div>
+    </div>
 
-<script>
+
+    <div class="content-box" id="cupcakes-content-box">
+        <div class="main-background-image" id="cupcakes-main-background"><img src="img/bg_cupcakes.jpg" alt="Boerderij cupcakes"/></div>
+        <div class="content-center">
+
+        </div>
+    </div>
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="js/fondanti.js"></script>
+	<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+      ga('create', 'UA-39370485-1', 'auto');
+      ga('send', 'pageview');
+    
+    </script>
+
+    <script type="text/javascript">
     // lagen maken
+
+
     var cake = ["Biscuitdeeg (1 euro pp)", "Chocolate (2 euro pp)", "Red velvet (3 euro pp)"];
     var bekleding = ["Fondant (1 euro pp)", "Marsepein (3 euro pp)", "Beide (4 euro pp)"];
     var vulling = ["Kindervulling (1 euro pp)", "Gele room met oreo vulling (2 euro pp)", "Champagneroom met frambozen (3 euro pp)"];
 
+    var lijstCake = ["cake1", "cake2", "cake3", "cake4", "cake5"];
+    var lijstBekleding = ["bekleding1", "bekleding2", "bekleding3", "bekleding4", "bekleding5"];
+    var lijstVulling = ["vulling1", "vulling2", "vulling3", "vulling4", "vulling5"];
+
+
+    // Variabelen
     var currentLaag = 0;
     var aantalPersonen = 0;
 
     var laagDiv = document.getElementById("laag1");
 
-
+    // Wanneer geen laag is kan je ook geen laag verwijderen
     function buttonCheck() {
         if (currentLaag <= 1) {
             document.getElementById("removeButton").disabled = true;
@@ -231,18 +330,9 @@
 
     // remove alle lagen
     function removeAlleLagen() {
-        //loop door alle lagen heen en verwijdert ze
-        while (currentLaag > 1) {
-            var className = "elementsLaag" + currentLaag;
-            var elements = document.getElementsByClassName(className);
-            while (elements.length > 0) {
-                elements[0].parentNode.removeChild(elements[0]);
-            }
-            currentLaag -= 1;
-        }
 
-        //doe een buttoncheck 
-        buttonCheck();
+        location.reload();
+
     }
 
 
@@ -251,14 +341,23 @@
     function removeLaag() {
         //verwijdert de laatste laag
         var className = "elementsLaag" + currentLaag;
+        var className2 = "elementsLaagform"+ currentLaag
+
         var elements = document.getElementsByClassName(className);
+        var elements2 = document.getElementsByClassName(className2);
         while (elements.length > 0) {
             elements[0].parentNode.removeChild(elements[0]);
+        }
+        while (elements2.length > 0) {
+            elements2[0].parentNode.removeChild(elements2[0]);
         }
 
         if (currentLaag > 1) {
             currentLaag = currentLaag - 1;
         }
+
+        // Refresh zodat taart kleiner word
+        taartVoorbeeld();
 
         //doe een buttoncheck
         buttonCheck();
@@ -273,13 +372,8 @@
         for (var i = currentLaag; i > 0; i--) {
             var d = document.createElement("div");
             var taartDiv = document.getElementById("taartDiv");
-            d.style.border = "1px solid black";
-            d.style.backgroundColor = "purple";
-            d.className = "elementsLaag" + i;
+            d.className = "elementsLaag";
             d.style.width = percentages[i - 1];
-            d.style.marginLeft = "auto";
-            d.style.marginRight = "auto";
-            
 
             taartDiv.appendChild(d);
 
@@ -300,89 +394,88 @@
         if (currentLaag > 1) {
             var para = document.createElement("p");
             laagDiv.appendChild(para);
-            para.className = "elementsLaag" + currentLaag;
 
             var label = document.createElement("label");
             label.textContent = "Laag " + currentLaag + ":";
-            label.className = "elementsLaag" + currentLaag;
+            label.className = "elementsLaagform"+ currentLaag;
             para.appendChild(label);
         }
 
 
         // laag 1
         var para = document.createElement("p");
-        para.className = "elementsLaag" + currentLaag;
+        para.className = "elementsLaagform"+ currentLaag;
         laagDiv.appendChild(para);
 
         var label = document.createElement("label");
         label.textContent = "Type cake laag " + currentLaag + ":";
-        label.className = "elementsLaag" + currentLaag;
+        label.className = "elementsLaagform"+ currentLaag;
         para.appendChild(label);
 
         var selectList = document.createElement("select");
-        selectList.className = "elementsLaag" + currentLaag;
+        selectList.className = "elementsLaagform"+ currentLaag;
         selectList.id = "option1laag" + currentLaag;
         para.appendChild(selectList);
         selectList.setAttribute('onchange', 'taartVoorbeeld()');
 
-        for (var i = 0; i < cake.length; i++) {
-            var option = document.createElement("option");
-            option.value = cake[i];
-            option.text = cake[i];
-            option.id = "option1" + i + currentLaag;
-            selectList.appendChild(option);
+        @foreach (var x in  Cake) {
+            @:var option = document.createElement("option");
+            @:option.value = '@x' ;
+            @:option.text = '@x';
+            @:option.id = "option1" + currentLaag;
+            @:selectList.appendChild(option);
         }
 
         //laag 2
         var para = document.createElement("p");
-        para.className = "elementsLaag" + currentLaag;
+        para.className = "elementsLaagform"+ currentLaag;
         laagDiv.appendChild(para);
 
         var label = document.createElement("label");
         label.textContent = "Type bekleding laag " + currentLaag + ":";
-        label.className = "elementsLaag" + currentLaag;
+        label.className = "elementsLaagform"+ currentLaag;
         para.appendChild(label);
 
         var selectList = document.createElement("select");
-        selectList.className = "elementsLaag" + currentLaag;
+        selectList.className = "elementsLaagform"+ currentLaag;
         selectList.id = "option2laag" + currentLaag;
         para.appendChild(selectList);
         selectList.setAttribute('onchange', 'taartVoorbeeld()');
 
-        for (var i = 0; i < bekleding.length; i++) {
-            var option = document.createElement("option");
-            option.value = bekleding[i];
-            option.text = bekleding[i];
-            option.id = "option2" + i + currentLaag;
-            selectList.appendChild(option);
+
+        
+        @foreach (var x in  Bekleding) {
+            @:var option = document.createElement("option");
+            @:option.value = '@x' ;
+            @:option.text = '@x';
+            @:option.id = "option2" + currentLaag;
+            @:selectList.appendChild(option);
         }
+
 
         //laag 3
         var para = document.createElement("p");
-        para.className = "elementsLaag" + currentLaag;
+        para.className = "elementsLaagform"+ currentLaag;
         laagDiv.appendChild(para);
 
         var label = document.createElement("label");
         label.textContent = "Type vulling laag " + currentLaag + ":";
-        label.className = "elementsLaag" + currentLaag;
+        label.className = "elementsLaagform"+ currentLaag;
         para.appendChild(label);
 
         var selectList = document.createElement("select");
-        selectList.className = "elementsLaag" + currentLaag;
+        selectList.className = "elementsLaagform"+ currentLaag;
         selectList.id = "option3laag" + currentLaag;
         para.appendChild(selectList);
         selectList.setAttribute('onchange', 'taartVoorbeeld()');
 
-        for (var i = 0; i < vulling.length; i++) {
-            var option = document.createElement("option");
-            option.value = vulling[i];
-            option.text = vulling[i];
-            option.id = "option3" + i + currentLaag;
-            selectList.appendChild(option);
+        @foreach (var x in  Vulling) {
+            @:var option = document.createElement("option");
+            @:option.value = '@x' ;
+            @:option.text = '@x';
+            @:option.id = "option3" + currentLaag;
+            @:selectList.appendChild(option);
         }
-
-
-
 
         //doe een buttoncheck
         buttonCheck();
@@ -394,4 +487,5 @@
 
 
 </script>
-
+</body>
+</html>
