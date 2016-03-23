@@ -148,14 +148,13 @@
             </p>
             <p>
                 <label>Thema:</label>
-                    <select name ="test">
+                    <select name ="thema" onchange="ThemaAnders(this.value)">
                         <option value=""></option>
                         @foreach(var x in Thema){
                             <option value="@x">@x</option>
                         }
-
                     </select> 
-                <input type="text"> </p>
+                <input type="text" name="thema" id="thema" style="display: none"> </p>
 
             <p>
                 <label>Aantal personen:</label>
@@ -190,12 +189,14 @@
                </select>  </p>
 
             <p><label>Allergieen:</label>
-               <select name ="test" form="test">
+               <select name ="allergieen" form="allergieen" onchange="AllergieAnders(this.value)">
                <option value=""></option>
                <option value="Glutenvrij">Glutenvrij</option>
                <option value="Geen">Geen</option>
-               <option value="Anders namelijk...">Anders namelijk...</option>
-               </select> <input type="text"> </p>
+               <option value="Anders namelijk...">Anders namelijk...</option>  
+               </select> 
+               <input type="text" name="allergieen" id="allergieen" style="display: none">
+               </p>
 
             <p><label>Gewenste opleverdatum:</label>
                <input type="date">
@@ -456,6 +457,34 @@
     }
 
     addLaag();
+
+        // voor het tevoorschijn komen van tekstbox bij optie anders namelijk..
+
+    function ThemaAnders(Waarde)
+    {
+        var element = document.getElementById('thema');
+        if (Waarde == 'Anders namelijk...')
+        {
+            element.style.display='initial';
+        }
+        else
+        {
+            element.style.display='none';
+        }
+    }
+
+    function AllergieAnders(Waarde)
+    {
+        var element = document.getElementById('allergieen');
+        if (Waarde == 'Anders namelijk...')
+        {
+            element.style.display='initial';
+        }
+        else
+        {
+            element.style.display='none';
+        }
+    }
 
 
 </script>
