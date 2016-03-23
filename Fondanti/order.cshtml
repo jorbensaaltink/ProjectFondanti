@@ -169,10 +169,16 @@
 
                 <div id="laag1">
                     <p>
-                        <label>Laag 1:</label> 
-                        <button id="addButton" type="button" onclick="addLaag()">+</button>
-                        <button id="removeButton" type="button" onclick="removeLaag()">-</button>
-                        <a id="laagToevoegenText">Uw kunt 1 laag extra toevoegen per 15 personen.</a>
+                      
+                    </p>
+
+                    <p>
+                        <button id="laagButton1" class="laagButton" onclick="setLaag(1)">Laag 1</button>
+                        <button id="laagButton2" class="laagButton" onclick="setLaag(2)">Laag 2</button>
+                        <button id="laagButton3" class="laagButton" onclick="setLaag(3)">Laag 3</button>
+                        <button id="laagButton4" class="laagButton" onclick="setLaag(4)">Laag 4</button>
+                        <button id="laagButton5" class="laagButton" onclick="setLaag(5)">Laag 5</button>
+
                     </p>
                 </div>
 
@@ -268,220 +274,221 @@
 
     <script type="text/javascript">
 
-    // Variabelen
-    var currentLaag = 0;
-    var aantalPersonen = 0;
+        // Variabelen
+        var currentLaag = 0;
+        var aantalPersonen = 0;
 
-    var laagDiv = document.getElementById("laag1");
+        var laagDiv = document.getElementById("laag1");
 
-    // Wanneer geen laag is kan je ook geen laag verwijderen
-    function buttonCheck() {
-        if (currentLaag <= 1) {
-            document.getElementById("removeButton").disabled = true;
-        } else {
-            document.getElementById("removeButton").disabled = false;
-        }
+        // Wanneer geen laag is kan je ook geen laag verwijderen
+        function buttonCheck() {
 
-        // zet aantal personen op 0
+            // zet aantal personen op 0
 
-        aantalPersonen = document.getElementById("aantalPersonenInput").value;
-        document.getElementById("aantalPersonenInput").value = aantalPersonen;
+            aantalPersonen = document.getElementById("aantalPersonenInput").value;
+            document.getElementById("aantalPersonenInput").value = aantalPersonen;
 
-        // zodat aantal personen niet in de min kan
-        if (aantalPersonen < 0) {
-            aantalPersonen = 0;
-        }
+            // zodat aantal personen niet in de min kan
+            if (aantalPersonen < 0) {
+                aantalPersonen = 0;
+            }
 
-        // 15 personen per laag
-        if (aantalPersonen >= currentLaag * 15) {
-            document.getElementById("addButton").disabled = false;
-        } else {
-            document.getElementById("addButton").disabled = true;
-        }
 
-        while (((currentLaag - 1) * 15) > aantalPersonen) {
-            removeLaag();
-        }
-    }
+           
 
-    //buttoncheck roepen zodat de buttons goed staan
-    buttonCheck();
-
-    // remove 1 laag
-    function removeLaag() {
-        //verwijdert de laatste laag
-        var className = "elementsLaag" + currentLaag;
-        var className2 = "elementsLaagform"+ currentLaag
-
-        var elements = document.getElementsByClassName(className);
-        var elements2 = document.getElementsByClassName(className2);
-        while (elements.length > 0) {
-            elements[0].parentNode.removeChild(elements[0]);
-        }
-        while (elements2.length > 0) {
-            elements2[0].parentNode.removeChild(elements2[0]);
-        }
-
-        if (currentLaag > 1) {
-            currentLaag = currentLaag - 1;
-        }
-
-        // Refresh zodat taart kleiner word
-        taartVoorbeeld();
-
-        //doe een buttoncheck
-        buttonCheck();
-    }
-
-    function taartVoorbeeld() {
-        // haal alles uit de taartdiv
-        document.getElementById("taartDiv").innerHTML = "";
-        var percentages = ["100%", "80%", "60%", "40%", "20%"];
-
-        //voeg alle lagen omgekeert toe zodat ze op elkaar stapelen
-        for (var i = currentLaag; i > 0; i--) {
-            var d = document.createElement("div");
-            var taartDiv = document.getElementById("taartDiv");
-            d.className = "elementsLaag";
-            d.style.width = percentages[i - 1];
-
-            taartDiv.appendChild(d);
-
-            for (var j = 0; j < 3; j++) {
-                var p = document.createElement("p");
-                d.appendChild(p);
-
-                p.textContent = document.getElementById("option" + (j + 1) + "laag" + i).value;
+            while (((currentLaag - 1) * 15) > aantalPersonen) {
+                removeLaag();
             }
         }
-    }
 
-    //voegt een laag toe
-    function addLaag() {
-        currentLaag = currentLaag + 1;
+        //buttoncheck roepen zodat de buttons goed staan
+        buttonCheck();
 
-        //label
-        if (currentLaag > 1) {
+        // remove 1 laag
+        function removeLaag() {
+            //verwijdert de laatste laag
+            var className = "elementsLaag" + currentLaag;
+            var className2 = "elementsLaagform" + currentLaag
+
+            var elements = document.getElementsByClassName(className);
+            var elements2 = document.getElementsByClassName(className2);
+            while (elements.length > 0) {
+                elements[0].parentNode.removeChild(elements[0]);
+            }
+            while (elements2.length > 0) {
+                elements2[0].parentNode.removeChild(elements2[0]);
+            }
+
+            if (currentLaag > 1) {
+                currentLaag = currentLaag - 1;
+            }
+
+            // Refresh zodat taart kleiner word
+            taartVoorbeeld();
+
+            //doe een buttoncheck
+            buttonCheck();
+        }
+
+        function taartVoorbeeld() {
+            // haal alles uit de taartdiv
+            document.getElementById("taartDiv").innerHTML = "";
+            var percentages = ["100%", "80%", "60%", "40%", "20%"];
+
+            //voeg alle lagen omgekeert toe zodat ze op elkaar stapelen
+            for (var i = currentLaag; i > 0; i--) {
+                var d = document.createElement("div");
+                var taartDiv = document.getElementById("taartDiv");
+                d.className = "elementsLaag";
+                d.style.width = percentages[i - 1];
+
+                taartDiv.appendChild(d);
+
+                for (var j = 0; j < 3; j++) {
+                    var p = document.createElement("p");
+                    d.appendChild(p);
+
+                    p.textContent = document.getElementById("option" + (j + 1) + "laag" + i).value;
+                }
+            }
+        }
+
+        function setLaag(laag) {
+            var amount = currentLaag - laag;
+            if (laag < currentLaag) {
+                for (var i = 0; i < amount; i++) {
+                    removeLaag();
+                }
+            }
+
+            var amount = laag - currentLaag;
+            if (laag > currentLaag) {
+                for (var i = 0; i < (amount); i++) {
+                    addLaag();
+                }
+            }
+        }
+
+        //voegt een laag toe
+        function addLaag() {
+            currentLaag = currentLaag + 1;
+
+            //label
+            if (currentLaag > 1) {
+                var para = document.createElement("p");
+                laagDiv.appendChild(para);
+
+                var label = document.createElement("label");
+                label.textContent = "Laag " + currentLaag + ":";
+                label.className = "elementsLaagform" + currentLaag;
+                para.appendChild(label);
+            }
+
+
+            // laag 1
             var para = document.createElement("p");
+            para.className = "elementsLaagform" + currentLaag;
             laagDiv.appendChild(para);
 
             var label = document.createElement("label");
-            label.textContent = "Laag " + currentLaag + ":";
-            label.className = "elementsLaagform"+ currentLaag;
+            label.textContent = "Type cake laag " + currentLaag + ":";
+            label.className = "elementsLaagform" + currentLaag;
             para.appendChild(label);
-        }
 
+            var selectList = document.createElement("select");
+            selectList.className = "elementsLaagform" + currentLaag;
+            selectList.id = "option1laag" + currentLaag;
+            para.appendChild(selectList);
+            selectList.setAttribute('onchange', 'taartVoorbeeld()');
 
-        // laag 1
-        var para = document.createElement("p");
-        para.className = "elementsLaagform"+ currentLaag;
-        laagDiv.appendChild(para);
+            @foreach (var x in  Cake) {
+                @:var option = document.createElement("option");
+                @:option.value = '@x' ;
+                @:option.text = '@x';
+                @:option.id = "option1" + currentLaag;
+                @:selectList.appendChild(option);
+            }
 
-        var label = document.createElement("label");
-        label.textContent = "Type cake laag " + currentLaag + ":";
-        label.className = "elementsLaagform"+ currentLaag;
-        para.appendChild(label);
+            //laag 2
+            var para = document.createElement("p");
+            para.className = "elementsLaagform" + currentLaag;
+            laagDiv.appendChild(para);
 
-        var selectList = document.createElement("select");
-        selectList.className = "elementsLaagform"+ currentLaag;
-        selectList.id = "option1laag" + currentLaag;
-        para.appendChild(selectList);
-        selectList.setAttribute('onchange', 'taartVoorbeeld()');
+            var label = document.createElement("label");
+            label.textContent = "Type bekleding laag " + currentLaag + ":";
+            label.className = "elementsLaagform" + currentLaag;
+            para.appendChild(label);
 
-        @foreach (var x in  Cake) {
-            @:var option = document.createElement("option");
-            @:option.value = '@x' ;
-            @:option.text = '@x';
-            @:option.id = "option1" + currentLaag;
-            @:selectList.appendChild(option);
-        }
-
-        //laag 2
-        var para = document.createElement("p");
-        para.className = "elementsLaagform"+ currentLaag;
-        laagDiv.appendChild(para);
-
-        var label = document.createElement("label");
-        label.textContent = "Type bekleding laag " + currentLaag + ":";
-        label.className = "elementsLaagform"+ currentLaag;
-        para.appendChild(label);
-
-        var selectList = document.createElement("select");
-        selectList.className = "elementsLaagform"+ currentLaag;
-        selectList.id = "option2laag" + currentLaag;
-        para.appendChild(selectList);
-        selectList.setAttribute('onchange', 'taartVoorbeeld()');
-
+            var selectList = document.createElement("select");
+            selectList.className = "elementsLaagform" + currentLaag;
+            selectList.id = "option2laag" + currentLaag;
+            para.appendChild(selectList);
+            selectList.setAttribute('onchange', 'taartVoorbeeld()');
 
         
-        @foreach (var x in  Bekleding) {
-            @:var option = document.createElement("option");
-            @:option.value = '@x' ;
-            @:option.text = '@x';
-            @:option.id = "option2" + currentLaag;
-            @:selectList.appendChild(option);
+            @foreach (var x in  Bekleding) {
+                @:var option = document.createElement("option");
+                @:option.value = '@x' ;
+                @:option.text = '@x';
+                @:option.id = "option2" + currentLaag;
+                @:selectList.appendChild(option);
+            }
+
+
+
+            //laag 3
+            var para = document.createElement("p");
+            para.className = "elementsLaagform" + currentLaag;
+            laagDiv.appendChild(para);
+
+            var label = document.createElement("label");
+            label.textContent = "Type vulling laag " + currentLaag + ":";
+            label.className = "elementsLaagform" + currentLaag;
+            para.appendChild(label);
+
+            var selectList = document.createElement("select");
+            selectList.className = "elementsLaagform" + currentLaag;
+            selectList.id = "option3laag" + currentLaag;
+            para.appendChild(selectList);
+            selectList.setAttribute('onchange', 'taartVoorbeeld()');
+
+            @foreach (var x in  Vulling) {
+                @:var option = document.createElement("option");
+                @:option.value = '@x' ;
+                @:option.text = '@x';
+                @:option.id = "option3" + currentLaag;
+                @:selectList.appendChild(option);
+            }
+
+            //doe een buttoncheck
+            buttonCheck();
+
+            taartVoorbeeld();
         }
 
-
-        //laag 3
-        var para = document.createElement("p");
-        para.className = "elementsLaagform"+ currentLaag;
-        laagDiv.appendChild(para);
-
-        var label = document.createElement("label");
-        label.textContent = "Type vulling laag " + currentLaag + ":";
-        label.className = "elementsLaagform"+ currentLaag;
-        para.appendChild(label);
-
-        var selectList = document.createElement("select");
-        selectList.className = "elementsLaagform"+ currentLaag;
-        selectList.id = "option3laag" + currentLaag;
-        para.appendChild(selectList);
-        selectList.setAttribute('onchange', 'taartVoorbeeld()');
-
-        @foreach (var x in  Vulling) {
-            @:var option = document.createElement("option");
-            @:option.value = '@x' ;
-            @:option.text = '@x';
-            @:option.id = "option3" + currentLaag;
-            @:selectList.appendChild(option);
-        }
-
-        //doe een buttoncheck
-        buttonCheck();
-
-        taartVoorbeeld();
-    }
-
-    addLaag();
+        addLaag();
 
         // voor het tevoorschijn komen van tekstbox bij optie anders namelijk..
 
-    function ThemaAnders(Waarde)
-    {
-        var element = document.getElementById('thema');
-        if (Waarde == 'Anders namelijk...')
-        {
-            element.style.display='initial';
+        function ThemaAnders(Waarde) {
+            var element = document.getElementById('thema');
+            if (Waarde == 'Anders namelijk...') {
+                element.style.display = 'initial';
+            }
+            else {
+                element.style.display = 'none';
+            }
         }
-        else
-        {
-            element.style.display='none';
-        }
-    }
 
-    function AllergieAnders(Waarde)
-    {
-        var element = document.getElementById('allergieen');
-        if (Waarde == 'Anders namelijk...')
-        {
-            element.style.display='initial';
+        function AllergieAnders(Waarde) {
+            var element = document.getElementById('allergieen');
+            if (Waarde == 'Anders namelijk...') {
+                element.style.display = 'initial';
+            }
+            else {
+                element.style.display = 'none';
+            }
         }
-        else
-        {
-            element.style.display='none';
-        }
-    }
 
 
 </script>
