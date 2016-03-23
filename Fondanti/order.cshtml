@@ -158,10 +158,8 @@
                <select name ="test" form="test">
                <option value=""></option>
                @foreach(var x in Decoratie){
-                    <option value="@x">@x @DecoratiePr[count]</option>
-                    @(count++)
+                    <option value="@x">@x</option>
                }
-                @(count =0)
                </select>  </p>
 
             <p><label>Allergieen:</label>
