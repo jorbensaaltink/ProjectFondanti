@@ -1,4 +1,16 @@
 ﻿@{
+    WebImage photo = null;
+    var newFileName = "";
+    var imagePath = "";
+    if(IsPost){
+        photo = WebImage.GetImageFromRequest();
+        if(photo != null){
+            newFileName = Guid.NewGuid().ToString() + "_" +
+            Path.GetFileName(photo.FileName);
+            imagePath = @"images\" + newFileName;
+            photo.Save(@"~\" + imagePath);
+        }
+    }
     // Voor de Database
     var db = Database.Open("Fondanti");
 
@@ -116,12 +128,22 @@
             </div>
             
             
-            <p>
+           <!-----------Afbeelding Upload------------>
                 <label>Inspiratieafbeelding uploaden:</label>
+            <form action="" method="post" enctype="multipart/form-data">
                     <label for="Image">Image</label>
                     <input type="file" name="Image" />
                     <br/>
-            </p>
+                    <input id="image" type="submit" value="Upload" />
+            </form>
+            <h1>Uploaded Image</h1>
+            @if(imagePath != ""){
+                <div class="result">
+                <img src="@imagePath" alt="image"/>
+
+
+                </div>
+            }
             <p>
                 <label>Thema:</label>
                     <select name ="thema" onchange="ThemaAnders(this.value)">
