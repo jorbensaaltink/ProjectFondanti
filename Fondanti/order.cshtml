@@ -15,69 +15,45 @@
     List<string> Bekleding = new List<string>();
     List<string> Decoratie = new List<string>();
     
-    List<string> VullingPr = new List<string>();
-    List<string> CakePr = new List<string>();
-    List<string> BekledingPr = new List<string>();
-    List<string> DecoratiePr = new List<string>();
-    
     List<string> Type = new List<string>(){"Thema", "Vulling", "Cake", "Bekleding", "Decoratie" };
 
     foreach(var x in Type){
         
-        var selectProduct = "SELECT Product FROM VOORRAAD  WHERE Type = @0";
+        var selectProduct = "SELECT * FROM VOORRAAD  WHERE Type = @0";
         var rows = db.Query(selectProduct, x);
-
-        var selectPrijs = "SELECT Prijs FROM VOORRAAD  WHERE Type = @0";
-        var rowsprijs = db.Query(selectPrijs, x);
         
      // Toevoegen aan list voor het type
 
         if (x == "Thema"){
             foreach(var row in rows){
-                Thema.Add(row.Product);
+                Thema.Add(row.Product + " " + row.Prijs);
             }
         }
     
         // Voor vulling
         if (x == "Vulling"){
             foreach(var row in rows){
-                Vulling.Add(row.Product);
-                 
+                Vulling.Add(row.Product + " " + row.Prijs); 
             }
-            foreach(var rowprijs in rowsprijs){
-                VullingPr.Add(rowprijs.Prijs);
-            }
+
         }
         // Voor Cake
         if (x == "Cake"){
             foreach(var row in rows){
-                Cake.Add(row.Product);
-                 
-            }
-            foreach(var rowprijs in rowsprijs){
-                CakePr.Add(rowprijs.Prijs);
+                Cake.Add(row.Product + " " + row.Prijs);    
             }
         }
         // Voor Bekleding
         if (x == "Bekleding"){
             foreach(var row in rows){
-                Bekleding.Add(row.Product);
-                 
-            }
-            foreach(var rowprijs in rowsprijs){
-                BekledingPr.Add(rowprijs.Prijs);
+                Bekleding.Add(row.Product + " " + row.Prijs);         
             }
         }
         // Voor Decoratie
         if (x == "Decoratie"){
             foreach(var row in rows){
-                Decoratie.Add(row.Product);
-                 
+                Decoratie.Add(row.Product + " " + row.Prijs );  
             }
-            foreach(var rowprijs in rowsprijs){
-                DecoratiePr.Add(rowprijs.Prijs);
-            }
-
         }
     }
 
