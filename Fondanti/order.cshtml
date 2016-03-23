@@ -22,10 +22,6 @@
     
     List<string> Type = new List<string>(){"Thema", "Vulling", "Cake", "Bekleding", "Decoratie" };
 
-    if (IsPost){
-        Response.Redirect("ConfirmationPage");
-    }
-
     foreach(var x in Type){
         
         var selectProduct = "SELECT Product FROM VOORRAAD  WHERE Type = @0";
