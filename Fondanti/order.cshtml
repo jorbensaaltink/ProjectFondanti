@@ -5,9 +5,6 @@
     // Algemene variabelen
     int count = 0;
     int numb = 0;
-    List <string> lijstCake = new List<string>{ "cake1","cake2", "cake3", "cake4", "cake5" };
-    List <string> lijstBekleding = new List<string>{ "bekleding1","bekleding2", "bekleding3", "bekleding4", "bekleding5" };
-    List <string> lijstVulling = new List<string>{ "vulling1","vulling2", "vulling3", "vulling4", "vulling5" };
     
 
     // Zodat boven nog tabel ziet met huidige wensen
@@ -211,7 +208,6 @@
             <label>Opmerkingen:</label>
             
             <input type="text" style="width: 800px;">
-            <input id="resetButton" type="reset" value="Reset" onclick="removeAlleLagen()">
             </p>
         </div>
         </div></div>
@@ -277,17 +273,6 @@
     </script>
 
     <script type="text/javascript">
-    // lagen maken
-
-
-    var cake = ["Biscuitdeeg (1 euro pp)", "Chocolate (2 euro pp)", "Red velvet (3 euro pp)"];
-    var bekleding = ["Fondant (1 euro pp)", "Marsepein (3 euro pp)", "Beide (4 euro pp)"];
-    var vulling = ["Kindervulling (1 euro pp)", "Gele room met oreo vulling (2 euro pp)", "Champagneroom met frambozen (3 euro pp)"];
-
-    var lijstCake = ["cake1", "cake2", "cake3", "cake4", "cake5"];
-    var lijstBekleding = ["bekleding1", "bekleding2", "bekleding3", "bekleding4", "bekleding5"];
-    var lijstVulling = ["vulling1", "vulling2", "vulling3", "vulling4", "vulling5"];
-
 
     // Variabelen
     var currentLaag = 0;
@@ -327,15 +312,6 @@
 
     //buttoncheck roepen zodat de buttons goed staan
     buttonCheck();
-
-    // remove alle lagen
-    function removeAlleLagen() {
-
-        location.reload();
-
-    }
-
-
 
     // remove 1 laag
     function removeLaag() {
