@@ -1,8 +1,4 @@
 ﻿@{   
-    WebImage photo = null;
-    var newFileName = "";
-    var imagePath = "";
-
 
     // Connectie Database
     var db = Database.Open("Fondanti");
@@ -24,14 +20,10 @@
     var prijs= 0;
     var product1 ="";
     var selectCommand ="";
-    var imagebuttonvalue="";
     var tekst ="Een product toevoegen";
     var tekstsubmit ="Voeg dit product toe!";
     
-
-           
-
-
+    
     if (!Request.QueryString["deleteID"].IsEmpty() && Request.QueryString["deleteID"].IsInt()){
         var deleteID = Request.QueryString["deleteID"];
         var deleteCommand = "DELETE FROM VOORRAAD WHERE ID = @0";
@@ -79,42 +71,18 @@
 
         string selectVolgorde = "SELECT ID FROM VOORRAAD WHERE Product = @0 and Type = @1";
         var selectID = db.QueryValue(selectVolgorde, Product, Type);
-        // Foto
-        photo = WebImage.GetImageFromRequest();
 
-        if (selectID == null && photo != null){
+        if (selectID == null){
          // Bestaat nog niet dus kan uitvoeren
             var insertCommand = "INSERT INTO VOORRAAD (Type, Product, Prijs) VALUES(@0, @1, @2)";
             db.Execute(insertCommand, Type, Product, Prijs);
-
-         // Code voor icon
-
-                    newFileName = Guid.NewGuid().ToString() + "_" +
-                    Path.GetFileName(photo.FileName);
-                    imagePath = @"icons\" + newFileName;
-                    photo.Save(@"~\" + imagePath);
-
- 
+            
         }
         else{ 
         Validation.AddFormError("Deze volgorde is al een keer gebruikt, voer een andere in.");  
         }
      }
-     if(type=="Cake" ){
-         if (imagebuttonvalue == null){
-         Validation.AddFormError("Er is geen icon toegevoed");
-         }
-     }
-     if(type=="Bekleding" ){
-         if (imagebuttonvalue == null){
-         Validation.AddFormError("Er is geen icon toegevoed");
-         }
-     }
-     if(type=="Vulling" ){
-         if (imagebuttonvalue == null){
-         Validation.AddFormError("Er is geen icon toegevoed");
-         }
-     }
+
        // Zodat boven nog tabel ziet met huidige wensen
        var selectAlles = "SELECT * FROM VOORRAAD";
        var selectData = db.Query(selectAlles);
@@ -163,7 +131,7 @@
         )
       )
         
-         <form action="" method="post" enctype="multipart/form-data">
+         <form method="post">
          <br><br>
          <fieldset>
          <legend>@tekst</legend>
@@ -183,26 +151,13 @@
             <input type="number" name="prijs" value="@prijs">
              @Html.ValidationMessage("Prijs")
          </p>
-         <p>
-        <label for="Image">Icon</label>
-              <input type="file" name="Image" />
-              <br/>
-         </p>
         <p><input type="submit" name="submitButton" value="@tekstsubmit"></p>
+        
+        
         </fieldset>
-
-         </form>
-         <h1>Uploaded Image</h1>
-         if(imagePath != ""){
-            <div class="result">
-            <img src="@imagePath" alt="image"/>
-            </div>
-         }
-
-
-
+        </form>
         <p></p>
-        <a href="~/Admin?Command=afmelden" class="bluebutton">Afmeleden</a>
+        <a href="~/Admin?Command=afmelden" class="bluebutton">Afmelden</a>
         }else{
         <p>U moet zich eerst <a href="~/Login">Aanmelden</a>.</p>
         }
