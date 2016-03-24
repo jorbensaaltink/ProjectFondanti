@@ -45,7 +45,7 @@ font-size: 23px;
 line-height: normal;
 }
 /* Button Button Button */
-#addButton {
+.laagButton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
 	box-shadow:inset 0px 1px 0px 0px #97c4fe;
@@ -72,54 +72,20 @@ line-height: normal;
 	font-style:normal;
 	height:33px;
 	line-height:30px;
-	width:34px;
+	width:auto;
 	text-decoration:none;
 	text-align:center;
 	text-shadow:1px 1px 0px #1570cd;
 }
-#addButton:hover {
+.laagButton:hover {
 	background-color:#1e62d0;
 }
-#addButton:active {
+
+.laagButton:disabled {
+    background-color:#1e62d0;
+}
+
+.laagButton:active {
 	position:relative;
 	top:1px;
-}
-#removeButton {
-	-moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
-	box-shadow:inset 0px 1px 0px 0px #97c4fe;
-	background-color:#3d94f6;
-	-webkit-border-top-left-radius:14px;
-	-moz-border-radius-topleft:14px;
-	border-top-left-radius:14px;
-	-webkit-border-top-right-radius:14px;
-	-moz-border-radius-topright:14px;
-	border-top-right-radius:14px;
-	-webkit-border-bottom-right-radius:14px;
-	-moz-border-radius-bottomright:14px;
-	border-bottom-right-radius:14px;
-	-webkit-border-bottom-left-radius:14px;
-	-moz-border-radius-bottomleft:14px;
-	border-bottom-left-radius:14px;
-	text-indent:-1.0320000000000003px;
-	border:1px solid #337fed;
-	display:inline-block;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:23px;
-	font-weight:bold;
-	font-style:normal;
-	height:33px;
-	line-height:30px;
-	width:34px;
-	text-decoration:none;
-	text-align:center;
-	text-shadow:1px 1px 0px #1570cd;
-}
-#removeButton:hover {
-	background-color:#1e62d0;
-}
-#removeButton:active {
-    position: relative;
-    top: 1px;
 }
