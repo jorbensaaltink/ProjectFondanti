@@ -161,64 +161,68 @@
 
                 </div>
             }
-            <p>
-                <label>Thema:</label>
-                    <select name ="thema" onchange="ThemaAnders(this.value)">
-                        <option value=""></option>
-                        @foreach(var x in Thema){
-                            <option value="@x">@x</option>
-                        }
-                    </select> 
-                <input type="text" name="thema" id="thema" style="display: none"> </p>
 
-            <p>
-                <label>Aantal personen:</label>
-                <input id="aantalPersonenInput" type="number" onchange="buttonCheck()">
-            </p>
+            <div class="orderMainForm">
+                <p>
+                    <label>Thema:</label>
+                        <select name ="thema" onchange="ThemaAnders(this.value)">
+                            <option value=""></option>
+                            @foreach(var x in Thema){
+                                <option value="@x">@x</option>
+                            }
+                        </select> 
+                    <input type="text" name="thema" id="thema" style="display: none"> </p>
 
-                <div id="laag1">
-                    <p>
+                <p>
+                    <label>Aantal personen:</label>
+                    <input id="aantalPersonenInput" type="number" onchange="buttonCheck()">
+                </p>
+
+                    <div id="laag1">
+                        <p>
                       
-                    </p>
+                        </p>
 
-                    <p>
-                        <button id="laagButton1" class="laagButton" onclick="setLaag(1)">Laag 1</button>
-                        <button id="laagButton2" class="laagButton" onclick="setLaag(2)">Laag 2</button>
-                        <button id="laagButton3" class="laagButton" onclick="setLaag(3)">Laag 3</button>
-                        <button id="laagButton4" class="laagButton" onclick="setLaag(4)">Laag 4</button>
-                        <button id="laagButton5" class="laagButton" onclick="setLaag(5)">Laag 5</button>
+                        <p>
+                            <button id="laagButton1" class="laagButton" onclick="setLaag(1)">Laag 1</button>
+                            <button id="laagButton2" class="laagButton" onclick="setLaag(2)">Laag 2</button>
+                            <button id="laagButton3" class="laagButton" onclick="setLaag(3)">Laag 3</button>
+                            <button id="laagButton4" class="laagButton" onclick="setLaag(4)">Laag 4</button>
+                            <button id="laagButton5" class="laagButton" onclick="setLaag(5)">Laag 5</button>
 
-                    </p>
-                </div>
+                        </p>
+                    </div>
 
             
 
-            <p><label>Type Niveau decoratie:</label>
-               <select name ="test" form="test">
-               <option value=""></option>
-               @foreach(var x in Decoratie){
-                    <option value="@x">@x</option>
-               }
-               </select>  </p>
+                <p><label>Type Niveau decoratie:</label>
+                    <select name ="test" form="test">
+                    <option value=""></option>
+                    @foreach(var x in Decoratie){
+                        <option value="@x">@x</option>
+                    }
+                    </select>  
+                </p>
 
-            <p><label>Allergieen:</label>
-               <select name ="allergieen" form="allergieen" onchange="AllergieAnders(this.value)">
-               <option value=""></option>
-               <option value="Glutenvrij">Glutenvrij</option>
-               <option value="Geen">Geen</option>
-               <option value="Anders namelijk...">Anders namelijk...</option>  
-               </select> 
-               <input type="text" name="allergieen" id="allergieen" style="display: none">
-               </p>
+                <p><label>Allergieen:</label>
+                    <select name ="allergieen" form="allergieen" onchange="AllergieAnders(this.value)">
+                    <option value=""></option>
+                    <option value="Glutenvrij">Glutenvrij</option>
+                    <option value="Geen">Geen</option>
+                    <option value="Anders namelijk...">Anders namelijk...</option>  
+                    </select> 
+                    <input type="text" name="allergieen" id="allergieen" style="display: none">
+                </p>
 
-            <p><label>Gewenste opleverdatum:</label>
-               <input type="date">
-            </p>
-            <p>
-            <label>Opmerkingen:</label>
+                <p><label>Gewenste opleverdatum:</label>
+                    <input type="date">
+                </p>
+                <p>
+                    <label>Opmerkingen:</label>
             
-            <input type="text" style="width: 800px;">
-            </p>
+                    <input type="text" style="width: 800px;">
+                </p>
+            </div>
         </div>
         </div></div>
     </div>
