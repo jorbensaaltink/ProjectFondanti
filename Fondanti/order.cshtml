@@ -38,7 +38,11 @@
 
         if (x == "Thema"){
             foreach(var row in rows){
+<<<<<<< HEAD
+                Thema.Add(row.Product);
+=======
                 Thema.Add(row.Product );
+>>>>>>> 60caab3e6c960d330394c84f2251d077ab3765e9
             }
         }
     
@@ -68,6 +72,21 @@
             }
         }
     }
+    var SelectVulling = "SELECT Product, Type, Prijs FROM Voorraad WHERE Type = 'Vulling'";
+    var SelecteerVulling = db.Query(SelectVulling);
+    var VullingGrid = new WebGrid(source: SelecteerVulling, defaultSort: "Prijs");
+
+    var SelectCake = "SELECT Product, Type, Prijs FROM Voorraad WHERE Type = 'Cake'";
+    var SelecteerCake = db.Query(SelectCake);
+    var CakeGrid = new WebGrid(source: SelecteerCake, defaultSort: "Prijs");
+
+    var SelectBekleding = "SELECT Product, Type, Prijs FROM Voorraad WHERE Type = 'Bekleding'";
+    var SelecteerBekleding = db.Query(SelectBekleding);
+    var BekledingGrid = new WebGrid(source: SelecteerBekleding, defaultSort: "Prijs");
+
+    var SelectDecoratie = "SELECT Product, Type, Prijs FROM Voorraad WHERE Type = 'Decoratie'";
+    var SelecteerDecoratie = db.Query(SelectDecoratie);
+    var DecoratieGrid = new WebGrid(source: SelecteerDecoratie, defaultSort: "Prijs");
 }
 
 <!DOCTYPE html>
@@ -86,7 +105,12 @@
     <link href="~/FondantiStyle.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/JScript.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
+    
+    <style type="text/css">
+        .grid { margin: 4px; border-collapse: collapse; width: 600px; }
+        .grid th, .grid td { border: 1px solid #C0C0C0; padding: 5px; background-color: purple; color: white; }
+        .head { background-color: #E8E8E8; font-weight: bold; color: #FFF; }
+    </style>    
 </head>
 <body>
     <div id="top-header">
@@ -242,7 +266,50 @@
     <div class="content-box" id="cupcakes-content-box">
         <div class="main-background-image" id="cupcakes-main-background"><img src="img/bg_cupcakes.jpg" alt="Boerderij cupcakes"/></div>
         <div class="content-center">
+            <h2>Prijslijst (pp)</h2>
+    <p>      @VullingGrid.GetHtml(
+                                    tableStyle: "grid",
+                                    headerStyle: "head",
+                                    columns: VullingGrid.Columns(
+                                                                    VullingGrid.Column("Product"),
+                                                                    VullingGrid.Column("Type"),
+                                                                    VullingGrid.Column("Prijs")
+                                                                )
+                                )  
+   </p> 
 
+   <p>        @CakeGrid.GetHtml(
+                                    tableStyle: "grid",
+                                    headerStyle: "head",
+                                    columns: CakeGrid.Columns(
+                                                                    CakeGrid.Column("Product"),
+                                                                    CakeGrid.Column("Type"),
+                                                                    CakeGrid.Column("Prijs")
+                                                                )
+                                ) 
+    </p>    
+
+   <p>        @BekledingGrid.GetHtml(
+                                    tableStyle: "grid",
+                                    headerStyle: "head",
+                                    columns: BekledingGrid.Columns(
+                                                                    BekledingGrid.Column("Product"),
+                                                                    BekledingGrid.Column("Type"),
+                                                                    BekledingGrid.Column("Prijs")
+                                                                )
+                                ) 
+    </p>  
+
+   <p>        @DecoratieGrid.GetHtml(
+                                    tableStyle: "grid",
+                                    headerStyle: "head",
+                                    columns: DecoratieGrid.Columns(
+                                                                    DecoratieGrid.Column("Product"),
+                                                                    DecoratieGrid.Column("Type"),
+                                                                    DecoratieGrid.Column("Prijs")
+                                                                )
+                                ) 
+    </p>  
         </div>
     </div>
 
@@ -477,8 +544,6 @@
                 element.style.display = 'none';
             }
         }
-
-
 </script>
 </body>
 </html>
