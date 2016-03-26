@@ -58,39 +58,42 @@ line-height: normal;
 }
 /* Button Button Button */
 .laagButton {
-	-moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
-	box-shadow:inset 0px 1px 0px 0px #97c4fe;
-	background-color:#3d94f6;
-	-webkit-border-top-left-radius:14px;
-	-moz-border-radius-topleft:14px;
-	border-top-left-radius:14px;
-	-webkit-border-top-right-radius:14px;
-	-moz-border-radius-topright:14px;
-	border-top-right-radius:14px;
-	-webkit-border-bottom-right-radius:14px;
-	-moz-border-radius-bottomright:14px;
-	border-bottom-right-radius:14px;
-	-webkit-border-bottom-left-radius:14px;
-	-moz-border-radius-bottomleft:14px;
-	border-bottom-left-radius:14px;
-	text-indent:-1.0320000000000003px;
-	border:1px solid #337fed;
+	-moz-box-shadow:inset 0px 1px 0px 0px #cae3fc;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #cae3fc;
+	box-shadow:inset 0px 1px 0px 0px #cae3fc;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #4197ee) );
+	background:-moz-linear-gradient( center top, #79bbff 5%, #4197ee 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#4197ee');
+	background-color:#79bbff;
+	-webkit-border-top-left-radius:20px;
+	-moz-border-radius-topleft:20px;
+	border-top-left-radius:20px;
+	-webkit-border-top-right-radius:20px;
+	-moz-border-radius-topright:20px;
+	border-top-right-radius:20px;
+	-webkit-border-bottom-right-radius:20px;
+	-moz-border-radius-bottomright:20px;
+	border-bottom-right-radius:20px;
+	-webkit-border-bottom-left-radius:20px;
+	-moz-border-radius-bottomleft:20px;
+	border-bottom-left-radius:20px;
+	text-indent:0;
+	border:1px solid #469df5;
 	display:inline-block;
 	color:#ffffff;
 	font-family:Arial;
-	font-size:23px;
+	font-size:19px;
 	font-weight:bold;
 	font-style:normal;
-	height:33px;
-	line-height:30px;
-	width:auto;
+	height:37px;
+	line-height:37px;
+	width:200px;
 	text-decoration:none;
 	text-align:center;
-	text-shadow:1px 1px 0px #1570cd;
+	text-shadow:1px 1px 0px #287ace;
 }
 .laagButton:hover {
-	background-color:#1e62d0;
+	background-color:#469df5;
 }
 
 .laagButton:disabled {
@@ -101,3 +104,4 @@ line-height: normal;
 	position:relative;
 	top:1px;
 }
+

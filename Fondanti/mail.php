@@ -1,27 +1,18 @@
 <?php
-    // Variabelen
-    $aantalP = 0;
-    $thema ="";
+    $name = $_GET["name"];
+    $thema= $_GET["thema"];
+    $cake= $_GET["cake"];
+    $mail = $_GET["mail"];
+
+    // Mail functie 
+    if (isset $_GET["name"]){
+       
+        mail($mail,"Fondanti Order","
+        Hierbij een bevesteging van uw bestelling:
     
-    $Cake=array();
-    $Bekleding=array();
-    $Vulling=array();
-    
-    $niveau ="";
-    $allergie="";
-    $datum="";
-    $opmerking="";
-
-    $aanhef="";
-    $naam = "";
-    $tel ="";
-    $mail = "";
-
-
-    if (isset ($_GET["name"])){ $name =  $_GET["name"];}
-    if (isset ($_GET["mail"])){ $mail =  $_GET["mail"];}
-
-    mail($mail , "Fondanti Order" ,"Dit is een bevestiging","Beste ". $name);
+        Thema: " + $thema + 
+        "Cake: " + $cake + ,Beste " + $name + ");
+    }
 
 ?>
 
@@ -34,7 +25,7 @@
     <meta name="description" content="Fondanti maakt unieke taarten en cupcakes die er niet alleen fantastisch uit zien maar ook heerlijk smaken.">
     <meta id="myViewport" name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Fondanti - Order Verzonden</title>
+    <title>Fondanti - Fabulous cakes</title>
 
     <link href="css/reset.css" rel="stylesheet" type="text/css" />
     <link href="css/fondanti.css" rel="stylesheet" type="text/css" />
@@ -53,8 +44,8 @@
         <div class="content-center">
             <div class="text-box" id="fondanti-text">
                 <h2>Fondanti</h2>
-                <p>Uw order is verzonden, we proberen zo spoedig mogelijk met u in contact te komen!</p>
-                <p>Om terug te gaan klik <a href="https://www.facebook.com/fondanti/photos_albums">hier.</a></p>
+                <p>Fondanti maakt unieke taarten en cupcakes die er niet alleen fantastisch uit zien maar ook heerlijk smaken.</p>
+                <p>Elke taart is uniek en <a href="https://www.facebook.com/fondanti/photos_albums">alles is mogelijk.</a></p>
             </div>
         </div>
     </div>

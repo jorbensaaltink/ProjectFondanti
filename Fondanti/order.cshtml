@@ -38,35 +38,59 @@
 
         if (x == "Thema"){
             foreach(var row in rows){
+            Thema.Add(row.Product);
             }
         }
     
         // Voor vulling
         if (x == "Vulling"){
+            Vulling.Add("");
             foreach(var row in rows){
-                Vulling.Add(row.Product + " " + row.Prijs); 
+                Vulling.Add(row.Product + " € " + row.Prijs); 
             }
 
         }
         // Voor Cake
         if (x == "Cake"){
+            Cake.Add("");
             foreach(var row in rows){
-                Cake.Add(row.Product + " " + row.Prijs);    
+                Cake.Add(row.Product + " € " + row.Prijs);    
             }
         }
         // Voor Bekleding
         if (x == "Bekleding"){
+            Bekleding.Add("");
             foreach(var row in rows){
-                Bekleding.Add(row.Product + " " + row.Prijs);         
+                Bekleding.Add(row.Product + " € " + row.Prijs);         
             }
         }
         // Voor Decoratie
         if (x == "Decoratie"){
+            Decoratie.Add("");
             foreach(var row in rows){
-                Decoratie.Add(row.Product + " " + row.Prijs );  
+                Decoratie.Add(row.Product + " € " + row.Prijs );  
             }
         }
     }
+
+    
+    // Om een nieuwe toe te voegen
+   if (IsPost && Validation.IsValid()){
+
+        string selectVolgorde = "SELECT ID FROM IMGURL WHERE Img = @0";
+        var selectID = db.QueryValue(selectVolgorde, imagePath);
+
+        if (selectID == null && imagePath.Length < 200){
+         // Bestaat nog niet dus kan uitvoeren
+            var insertCommand = "INSERT INTO IMGURL (Img) VALUES(@0)";
+            db.Execute(insertCommand, imagePath);
+            
+        }
+        else{ 
+        Validation.AddFormError("Deze volgorde is al een keer gebruikt, voer een andere in.");  
+        }
+     }
+
     var SelectVulling = "SELECT Product, Type, Prijs FROM Voorraad WHERE Type = 'Vulling'";
     var SelecteerVulling = db.Query(SelectVulling);
     var VullingGrid = new WebGrid(source: SelecteerVulling, defaultSort: "Prijs");
@@ -97,7 +121,7 @@
     <link href="css/reset.css" rel="stylesheet" type="text/css" />
     <link href="css/fondanti.css" rel="stylesheet" type="text/css" />
 
-    <link href="~/FondantiStyle.css" rel="stylesheet" type="text/css" />
+
     <script type="text/javascript" src="js/JScript.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     
@@ -105,7 +129,8 @@
         .grid { margin: 4px; border-collapse: collapse; width: 600px; }
         .grid th, .grid td { border: 1px solid #C0C0C0; padding: 5px; background-color: purple; color: white; }
         .head { background-color: #E8E8E8; font-weight: bold; color: #FFF; }
-    </style>    
+    </style> 
+        <link href="~/FondantiStyle.css" rel="stylesheet" type="text/css" />   
 </head>
 <body>
     <div id="top-header">
@@ -134,7 +159,7 @@
         <br><br><br>
         <div id="Stap1">
                     
-                    <h2>Stap 1: De samenstelling</h2>
+                    <h2>Fondanti Taart Bestellen</h2>
             
 
             <!--------- Taart voor display ----------->
@@ -144,26 +169,15 @@
                     </div>
                 </div>
             </div>
-            
-           <!-----------Afbeelding Upload------------>
-                <label>Inspiratieafbeelding uploaden:</label>
-            <form action="" method="post" enctype="multipart/form-data">
-                    <label for="Image">Image</label>
-                    <input type="file" name="Image" />
-                    <br/>
-                    <input id="image" type="submit" value="Upload" />
-            </form>
-            <h1>Uploaded Image</h1>
-            @if(imagePath != ""){
-                <div class="result">
-                <img src="@imagePath" alt="image" width="100px" height="100px"/>
-
-
-                </div>
-            }
 
             <div class="orderMainForm">
+                <form action="" method="post" enctype="multipart/form-data">
+                
                 <p>
+                    <label>Aantal personen:</label>
+                    <input id="aantalPersonenInput" type="number" onchange="buttonCheck()">
+                </p>
+                    <p>
                     <label>Thema:</label>
                         <select name ="thema" onchange="ThemaAnders(this.value)">
                             <option value=""></option>
@@ -173,23 +187,15 @@
                         </select> 
                     <input type="text" name="thema" id="thema" style="display: none"> </p>
 
-                <p>
-                    <label>Aantal personen:</label>
-                    <input id="aantalPersonenInput" type="number" onchange="buttonCheck()">
-                </p>
+
 
                     <div id="laag1">
                         <p>
-                      
-                        </p>
-
-                        <p>
-                            <button id="laagButton1" class="laagButton" onclick="setLaag(1)">Laag 1</button>
-                            <button id="laagButton2" class="laagButton" onclick="setLaag(2)">Laag 2</button>
-                            <button id="laagButton3" class="laagButton" onclick="setLaag(3)">Laag 3</button>
-                            <button id="laagButton4" class="laagButton" onclick="setLaag(4)">Laag 4</button>
-                            <button id="laagButton5" class="laagButton" onclick="setLaag(5)">Laag 5</button>
-
+                            <a id="laagButton1" class="laagButton" onclick="setLaag(1)">Laag 1</a>
+                            <a id="laagButton2" class="laagButton" onclick="setLaag(2)">Laag 2</a>
+                            <a id="laagButton3" class="laagButton" onclick="setLaag(3)">Laag 3</a>
+                            <a id="laagButton4" class="laagButton" onclick="setLaag(4)">Laag 4</a>
+                            <a id="laagButton5" class="laagButton" onclick="setLaag(5)">Laag 5</a>
                         </p>
                     </div>
 
@@ -197,13 +203,11 @@
 
                 <p><label>Type Niveau decoratie:</label>
                     <select name ="test" form="test">
-                    <option value=""></option>
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
                     }
                     </select>  
                 </p>
-
                 <p><label>Allergieen:</label>
                     <select name ="allergieen" form="allergieen" onchange="AllergieAnders(this.value)">
                     <option value=""></option>
@@ -218,10 +222,10 @@
                     <input type="date">
                 </p>
                 <p>
-                    <label>Opmerkingen:</label>
+                    <label>Opmerkingen:</label></p><br>
             
-                    <input type="text" style="width: 800px;">
-                </p>
+                    <textarea rows="4" cols="50"></textarea>
+                
             </div>
         </div>
         </div></div>
@@ -250,6 +254,8 @@
                <input type="email" style="width: 200px;"> </p>
 
             <p> 
+            <p><label>Inspiratieafbeelding uploaden:</label> <input type="file" name="Image" /></p>
+                    <br/>
                 <input type="submit" value="Bevestig informatieverzoek">
             </p>
         </div>
@@ -262,6 +268,7 @@
         <div class="main-background-image" id="cupcakes-main-background"><img src="img/bg_cupcakes.jpg" alt="Boerderij cupcakes"/></div>
         <div class="content-center">
             <h2>Prijslijst (pp)</h2>
+            
     <p>      @VullingGrid.GetHtml(
                                     tableStyle: "grid",
                                     headerStyle: "head",
@@ -327,6 +334,9 @@
         // Variabelen
         var currentLaag = 0;
         var aantalPersonen = 0;
+        var aantalPersonenC = 0;
+        var minLaag =0;
+        var maxLaag =0;
 
         var laagDiv = document.getElementById("laag1");
 
@@ -334,7 +344,9 @@
         function buttonCheck() {
 
             // zet aantal personen op 0
-
+            aantalPersonenC = 0;
+            minLaag =0;
+            maxLaag =0;
             aantalPersonen = document.getElementById("aantalPersonenInput").value;
             document.getElementById("aantalPersonenInput").value = aantalPersonen;
 
@@ -343,12 +355,50 @@
                 aantalPersonen = 0;
             }
 
+            // Uitrekenen max aantal lagen
+            aantalPersonenC = aantalPersonen ;    
 
-           
+            while (aantalPersonenC > 0){
+                minLaag++;
+                aantalPersonenC -= 25;   
+
+            }
+            
+            // Uitrekenen min aantal lagen
+            aantalPersonenC = aantalPersonen ;    
+
+            while (aantalPersonenC > 0){
+                maxLaag++;
+                aantalPersonenC -= 15;   
+
+            }
+
+            var element ="";
+            var opslag = ["laagButton1", "laagButton2", "laagButton3", "laagButton4", "laagButton5"];
+            
+            
+            // Alles maken wat onder minLaag zit
+            
+            for (var i =0; i<5; i++){
+                element = document.getElementById(opslag[i]);
+                element.style.display = 'none';
+            }
+
+            if (minLaag != 0){
+            for (var i =minLaag; i <= maxLaag; i++){
+            
+                    element = document.getElementById(opslag[i-1]);
+                    element.style.display = 'initial';
+            
+            }
+            }
+
 
             while (((currentLaag - 1) * 15) > aantalPersonen) {
                 removeLaag();
             }
+
+            
         }
 
         //buttoncheck roepen zodat de buttons goed staan
@@ -403,6 +453,7 @@
             }
         }
 
+        // De variabel laag geeft aan hoeveel 
         function setLaag(laag) {
             var amount = currentLaag - laag;
             if (laag < currentLaag) {
