@@ -1,27 +1,110 @@
 <?php
     // Variabelen
-    $aantalP = 0;
-    $thema ="";
     
     $Cake=array();
     $Bekleding=array();
     $Vulling=array();
+
+    // Checkt of alles in de url staat
+    if (isset ($_GET["aantalP"]) &&isset ($_GET["thema"]) &&isset ($_GET["aantalL"]) 
+    && isset ( $_GET["niveau"]) &&isset ( $_GET["allergie"])&& isset ( $_GET["datum"]) 
+    && isset ($_GET["opmerking"]) && isset ($_GET["aanhef"]) && isset ($_GET["naam"]) 
+    && isset ( $_GET["tel"]) && isset ($_GET["mail"]) && isset ($_GET["totaalP"]))
+    {
+         $aantalP =  $_GET["aantalP"];
+         $thema =  $_GET["thema"];
+         $aantalL = $_GET["aantalL"];
+
+         for ($i =1; $i<= $aantalL; $i++){
+         
+            array_push($Cake, $_GET["Cake" . + $i]);
+            array_push($Bekleding, $_GET["Bekleding". +$i]);
+            array_push($Vulling, $_GET["Vulling". + $i]);
+         
+         }
+         
+         $niveau =  $_GET["niveau"];
+         $allergie =  $_GET["allergie"];
+         $datum =  $_GET["datum"];
+         $opmerking =  $_GET["opmerking"];
+
+         $aanhef =  $_GET["name"];
+         $naam =  $_GET["naam"];
+         $tel =  $_GET["tel"];
+         $mail =  $_GET["mail"];
+         $totaalP = $_GET["totaalP"];
+
+         // Voor de lagen in de mail
+
+         $tekst ="";
+         $x=1;
+
+         for ($i =0; $i< $aantalL; $i++){
+         $tekst .= "
+         Laag ". $x .": 
+         Type Cake: ". $Cake[$i] ."
+         Type Bekleding:" .$Bekleding[$i] ."
+         Type Vulling:" .$Vulling[$i] ;
+         $x++;
+         }
+
+         // Mail naar klant
+         mail($mail , "Fondanti Order" ,
+         "Hierbij uw order bij Fondanti:
+         
+         ". $thema ." voor ". $aantalP ."
+         
+         Aantal lagen: ". $aantalL ."
+
+         ". $tekst."
+
+         Met Decoratie niveau: ". $niveau ."
+         Gewenste opleverdatum: ".$datum."
+
+         Totaal prijs: ". $totaalP."
+         
+         Wij zullen zo spoedig mogelijk contact opnemen!
+
+         Met vriendelijke groet, 
+
+         Team Fondanti
+         " ,"Beste ". $naam);
+
+         // Mail naar Fondanti
+
+         mail("jorbensaaltink@gmail.com" , "Fondanti Order" ,
+         "Bestelling op ".date("d-m-Y").":
+         
+         ". $thema ." voor ". $aantalP ."
+         
+         Aantal lagen: ". $aantalL ."
+         ". $tekst."
+
+         Met Decoratie niveau: ". $niveau ."
+         Gewenste opleverdatum: ".$datum."
+
+         Totaal prijs: ". $totaalP."
+         
+         Overige gegevens van klant:
+         Allergiën: ". $allergie ."
+         Opmerkingen: ".$opmerking."
+
+         Contact gegevens klant:
+
+         ". $aanhef. "
+         ". $naam." 
+         ". $tel."
+         ". $mail 
+         ,"Beste ". $naam);
+    }else{
+        
+    header("Location: http://jorbensaaltink.nl/Fondanti/fout.html");
+
+    exit;
+    }
+
+
     
-    $niveau ="";
-    $allergie="";
-    $datum="";
-    $opmerking="";
-
-    $aanhef="";
-    $naam = "";
-    $tel ="";
-    $mail = "";
-
-
-    if (isset ($_GET["name"])){ $name =  $_GET["name"];}
-    if (isset ($_GET["mail"])){ $mail =  $_GET["mail"];}
-
-    mail($mail , "Fondanti Order" ,"Dit is een bevestiging","Beste ". $name);
 
 ?>
 
@@ -54,7 +137,7 @@
             <div class="text-box" id="fondanti-text">
                 <h2>Fondanti</h2>
                 <p>Uw order is verzonden, we proberen zo spoedig mogelijk met u in contact te komen!</p>
-                <p>Om terug te gaan klik <a href="https://www.facebook.com/fondanti/photos_albums">hier.</a></p>
+                <p>Om terug te gaan naar de homepagina klik dan <a href="/index">hier.</a></p>
             </div>
         </div>
     </div>
