@@ -2,14 +2,54 @@
     WebImage photo = null;
     var newFileName = "";
     var imagePath = "";
+         
+
+
     if(IsPost){
-        photo = WebImage.GetImageFromRequest();
-        if(photo != null){
-            newFileName = Guid.NewGuid().ToString() + "_" +
-            Path.GetFileName(photo.FileName);
-            imagePath = @"images\" + newFileName;
-            photo.Save(@"~\" + imagePath);
-        }
+
+        // Haalt alle waarden uit de input 
+         var aantalP =  Request.Form["aantalP"];
+         var thema = Request.Form["thema"];
+         var aantalL = Convert.ToInt32(Request.Form["aantalL"]);
+
+         List<string> CakeLijst = new List<string>();
+         List<string> BekledingLijst = new List<string>();
+         List<string> VullingLijst = new List<string>();
+         
+         for (int i =1; i<= aantalL; i++){
+         
+            CakeLijst.Add(Request.Form["option1laag" + i]);
+            BekledingLijst.Add(Request.Form["option1laag" + i]);
+            VullingLijst.Add(Request.Form["option1laag" + i]);
+         
+         }
+         
+         var niveau =  Request.Form["decoratie"];
+         var allergie = Request.Form["allergieen"];
+         var datum =  Request.Form["datum"];
+         var opmerking =  Request.Form["opmerkingen"];
+
+         var aanhef =  Request.Form["Aanhef"];
+         var naam =  Request.Form["naam"];
+         var tel =  Request.Form["tel"];
+         var mail = Request.Form["mail"];
+         var totaalP = Request.Form["totaalP"];
+
+
+         // Geeft aan dat die imagePath niet kent?
+
+        // photo = WebImage.GetImageFromRequest();
+        //if(photo != null){
+            // newFileName = Guid.NewGuid().ToString() + "_" +
+            // Path.GetFileName(photo.FileName);
+            // imagePath = @"images\" + newFileName;
+            // photo.Save(@"~\" + imagePath);
+        //}
+
+        // Alles voor Validation
+
+
+
     }
     // Voor de Database
     var db = Database.Open("Fondanti");
@@ -160,7 +200,7 @@
         <div id="Stap1">
                     
                     <h2>Fondanti Taart Bestellen</h2>
-            
+            @Html.ValidationSummary()
 
             <!--------- Taart voor display ----------->
             <div class="taartbox">
@@ -175,7 +215,7 @@
                 
                 <p>
                     <label>Aantal personen:</label>
-                    <input id="aantalPersonenInput" type="number" onchange="buttonCheck()">
+                    <input id="aantalPersonenInput" name="aantalP" type="number" onchange="buttonCheck()">
                 </p>
                     <p>
                     <label>Thema:</label>
@@ -202,7 +242,7 @@
             
 
                 <p><label>Type Niveau decoratie:</label>
-                    <select name ="test" form="test">
+                    <select name ="decoratie" form="test">
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
                     }
@@ -219,12 +259,12 @@
                 </p>
 
                 <p><label>Gewenste opleverdatum:</label>
-                    <input type="date">
+                    <input name="datum" type="date">
                 </p>
                 <p>
                     <label>Opmerkingen:</label></p><br>
             
-                    <textarea rows="4" cols="50"></textarea>
+                    <textarea name="opmerkingen" rows="4" cols="50"></textarea>
                 
             </div>
         </div>
@@ -238,22 +278,24 @@
             <h2>Stap 2: Uw gegevens</h2>
            
             <p><label>Aanhef:</label>
-               <select name ="test" form="test">
+               <select name ="Aanhef" form="test">
                <option value=""></option>
                <option value="Dhr.">Dhr.</option>
                <option value="Mw">Mw.</option>
                </select> </p>
 
             <p><label>Naam:</label>
-               <input type="text"> </p>
+               <input name="naam" type="text"> </p>
 
             <p><label>Tel:</label>
-               <input type="tel"> </p>
+               <input name="tel" type="tel"> </p>
 
             <p><label>E-mailadres:</label>
-               <input type="email" style="width: 200px;"> </p>
+               <input type="email" name="mail" style="width: 200px;"> </p>
 
             <p> 
+            <input type="hidden" class="hidden" value="0" name="aantalL" id="aantalL">
+
             <p><label>Inspiratieafbeelding uploaden:</label> <input type="file" name="Image" /></p>
                     <br/>
                 <input type="submit" value="Bevestig informatieverzoek">
@@ -485,7 +527,6 @@
                 para.appendChild(label);
             }
 
-
             // laag 1
             var para = document.createElement("p");
             para.className = "elementsLaagform" + currentLaag;
@@ -499,13 +540,14 @@
             var selectList = document.createElement("select");
             selectList.className = "elementsLaagform" + currentLaag;
             selectList.id = "option1laag" + currentLaag;
+            selectList.name = "option1laag" + currentLaag;
             para.appendChild(selectList);
             selectList.setAttribute('onchange', 'taartVoorbeeld()');
 
             @foreach (var x in  Cake) {
                 @:var option = document.createElement("option");
                 @:option.value = '@x' ;
-                @:option.text = '@x';
+                @:option.text = '@x'; 
                 @:option.id = "option1" + currentLaag;
                 @:selectList.appendChild(option);
             }
@@ -523,6 +565,7 @@
             var selectList = document.createElement("select");
             selectList.className = "elementsLaagform" + currentLaag;
             selectList.id = "option2laag" + currentLaag;
+            selectList.name = "option2laag" + currentLaag;
             para.appendChild(selectList);
             selectList.setAttribute('onchange', 'taartVoorbeeld()');
 
@@ -550,6 +593,7 @@
             var selectList = document.createElement("select");
             selectList.className = "elementsLaagform" + currentLaag;
             selectList.id = "option3laag" + currentLaag;
+            selectList.name = "option3laag" + currentLaag;
             para.appendChild(selectList);
             selectList.setAttribute('onchange', 'taartVoorbeeld()');
 
