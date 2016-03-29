@@ -36,20 +36,30 @@
          var totaalP = Request.Form["totaalP"];
 
 
-         // Geeft aan dat die imagePath niet kent?
+         //Geeft aan dat die imagePath niet kent?
 
-        // photo = WebImage.GetImageFromRequest();
-        //if(photo != null){
-            // newFileName = Guid.NewGuid().ToString() + "_" +
-            // Path.GetFileName(photo.FileName);
-            // imagePath = @"images\" + newFileName;
-            // photo.Save(@"~\" + imagePath);
-        //}
+         photo = WebImage.GetImageFromRequest();
+         if(photo != null){
+            newFileName = Guid.NewGuid().ToString() + "_" +
+            Path.GetFileName(photo.FileName);
+            imagePath = @"images\" + newFileName;
+            photo.Save(@"~\" + imagePath);
+         }
 
         // Alles voor Validation
-
-
-
+        Validation.RequireField("aantalP", "Vul het aantal personen in!");
+        Validation.RequireField("thema", "Selecteer een thema!");
+        Validation.RequireField("decoratie", "Selecteer een decoratie!");
+        Validation.RequireField("datum", "Geef de opleverdatum op!");
+        Validation.RequireField("Aanhef", "Selecteer een Aanhef!");
+        Validation.RequireField("naam", "Vul een naam in!");
+        Validation.RequireField("tel", "Vul een telefoonnummer in!");
+        Validation.RequireField("mail", "Vul een e-mailadres in!");
+        Validation.RequireField("cake", "Selecteer een cake soort!");
+        Validation.RequireField("bekleding", "Selecteer de bekleding!");
+        Validation.RequireField("vulling", "Selecteer een vulling!");
+        Validation.RequireField("allergieen", "Selecteer een allergie!");
+  
     }
     // Voor de Database
     var db = Database.Open("Fondanti");
@@ -185,7 +195,7 @@
         <div class="content-center">
             <div class="text-box" id="fondanti-text">
                 <h2>Fondanti</h2>
-                <p class="bigger">Maak hier uw verlopige bestelling, zo komt u direct in contact met Fondanti & heeft u meteen een idee wat het gaat kosten.</p>
+                <p class="bigger">Maak hier uw voorlopige bestelling, zo komt u direct in contact met Fondanti en heeft u meteen een idee wat het gaat kosten.</p>
                 <p class="bigger">Wilt u voorbeelden zien? Klik dan <a href="https://www.facebook.com/fondanti/photos_albums">hier.</a></p>
             </div>
         </div>
@@ -200,7 +210,6 @@
         <div id="Stap1">
                     
                     <h2>Fondanti Taart Bestellen</h2>
-            @Html.ValidationSummary()
 
             <!--------- Taart voor display ----------->
             <div class="taartbox">
@@ -216,6 +225,7 @@
                 <p>
                     <label>Aantal personen:</label>
                     <input id="aantalPersonenInput" name="aantalP" type="number" onchange="buttonCheck()">
+                    @Html.ValidationMessage("aantalP")
                 </p>
                     <p>
                     <label>Thema:</label>
@@ -225,7 +235,10 @@
                                 <option value="@x">@x</option>
                             }
                         </select> 
-                    <input type="text" name="thema" id="thema" style="display: none"> </p>
+                    @Html.ValidationMessage("thema")
+                    <input type="text" name="thema" id="thema" style="display: none">
+
+                    </p>
 
 
 
@@ -246,7 +259,8 @@
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
                     }
-                    </select>  
+                    </select> 
+                    @Html.ValidationMessage("decoratie") 
                 </p>
                 <p><label>Allergieen:</label>
                     <select name ="allergieen" form="allergieen" onchange="AllergieAnders(this.value)">
@@ -256,10 +270,12 @@
                     <option value="Anders namelijk...">Anders namelijk...</option>  
                     </select> 
                     <input type="text" name="allergieen" id="allergieen" style="display: none">
+                    @Html.ValidationMessage("allergieen")
                 </p>
 
                 <p><label>Gewenste opleverdatum:</label>
                     <input name="datum" type="date">
+                    @Html.ValidationMessage("datum")
                 </p>
                 <p>
                     <label>Opmerkingen:</label></p><br>
@@ -282,21 +298,30 @@
                <option value=""></option>
                <option value="Dhr.">Dhr.</option>
                <option value="Mw">Mw.</option>
-               </select> </p>
+               </select> 
+            @Html.ValidationMessage("Aanhef")
+            </p>
 
             <p><label>Naam:</label>
-               <input name="naam" type="text"> </p>
+               <input name="naam" type="text"> 
+                @Html.ValidationMessage("naam")
+            </p>
 
             <p><label>Tel:</label>
-               <input name="tel" type="tel"> </p>
+               <input name="tel" type="tel"> 
+                @Html.ValidationMessage("tel")
+            </p>
 
             <p><label>E-mailadres:</label>
-               <input type="email" name="mail" style="width: 200px;"> </p>
+               <input type="email" name="mail" style="width: 200px;"> 
+                @Html.ValidationMessage("mail")
+            </p>
 
             <p> 
             <input type="hidden" class="hidden" value="0" name="aantalL" id="aantalL">
 
-            <p><label>Inspiratieafbeelding uploaden:</label> <input type="file" name="Image" /></p>
+            <p><label>Inspiratieafbeelding uploaden:</label> 
+                <input type="file" name="Image" /></p>
                     <br/>
                 <input type="submit" value="Bevestig informatieverzoek">
             </p>
@@ -543,6 +568,7 @@
             selectList.name = "option1laag" + currentLaag;
             para.appendChild(selectList);
             selectList.setAttribute('onchange', 'taartVoorbeeld()');
+            
 
             @foreach (var x in  Cake) {
                 @:var option = document.createElement("option");
@@ -551,6 +577,7 @@
                 @:option.id = "option1" + currentLaag;
                 @:selectList.appendChild(option);
             }
+
 
             //laag 2
             var para = document.createElement("p");
