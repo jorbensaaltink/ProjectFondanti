@@ -3,6 +3,19 @@
     var newFileName = "";
     var imagePath = "";
     string urlLink =""; 
+    // Alles voor Validation
+        Validation.RequireField("aantalP", "Vul het aantal personen in!");
+        Validation.RequireField("thema", "Selecteer een thema!");
+        Validation.RequireField("decoratie", "Selecteer een decoratie!");
+        Validation.RequireField("datum", "Geef de opleverdatum op!");
+        Validation.RequireField("Aanhef", "Selecteer een Aanhef!");
+        Validation.RequireField("naam", "Vul een naam in!");
+        Validation.RequireField("tel", "Vul een telefoonnummer in!");
+        Validation.RequireField("mail", "Vul een e-mailadres in!");
+        Validation.RequireField("cake", "Selecteer een cake soort!");
+        Validation.RequireField("bekleding", "Selecteer de bekleding!");
+        Validation.RequireField("vulling", "Selecteer een vulling!");
+        Validation.RequireField("allergieen", "Selecteer een allergie!");
 
 
     if(IsPost){
@@ -45,19 +58,7 @@
             Response.Redirect("http://jorbensaaltink.nl/confirm.php?");
          }
 
-        // Alles voor Validation
-        Validation.RequireField("aantalP", "Vul het aantal personen in!");
-        Validation.RequireField("thema", "Selecteer een thema!");
-        Validation.RequireField("decoratie", "Selecteer een decoratie!");
-        Validation.RequireField("datum", "Geef de opleverdatum op!");
-        Validation.RequireField("Aanhef", "Selecteer een Aanhef!");
-        Validation.RequireField("naam", "Vul een naam in!");
-        Validation.RequireField("tel", "Vul een telefoonnummer in!");
-        Validation.RequireField("mail", "Vul een e-mailadres in!");
-        Validation.RequireField("cake", "Selecteer een cake soort!");
-        Validation.RequireField("bekleding", "Selecteer de bekleding!");
-        Validation.RequireField("vulling", "Selecteer een vulling!");
-        Validation.RequireField("allergieen", "Selecteer een allergie!");
+        
   
     }
     // Voor de Database
