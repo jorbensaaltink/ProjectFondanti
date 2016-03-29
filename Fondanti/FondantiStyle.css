@@ -36,9 +36,14 @@ div.taartbox {
     padding-top: 100px;
 
 }
+.allignment{
+    float: right;
+    margin-right: 52%;
+    width: 300px;
+}
 
 orderMainForm{
-    
+    line-height: 5px;
 }
 
 mainFormLeft{
