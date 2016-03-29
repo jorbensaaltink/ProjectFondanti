@@ -155,6 +155,8 @@ Wedding cakes Section
 
 #wedding-cake-content-box{
     height: 800px;
+    overflow-y: initial;
+    
 }
 
 #wedding-cake-text{
@@ -165,7 +167,8 @@ Wedding cakes Section
 
 #wedding-cake-main-background{
     background-image: url('../img/bg_wedding_cake.jpg');
-    height: 800px;
+    background-size: 100%;
+    
 }
 
 /*
