@@ -155,7 +155,7 @@ Wedding cakes Section
 
 #wedding-cake-content-box{
     height: 800px;
-    overflow-y: initial;
+    overflow-y: auto;
     
 }
 
