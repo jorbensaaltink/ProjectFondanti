@@ -43,8 +43,8 @@
          for (int i =1; i<= aantalL; i++){
          
             urlLink += "&Cake" + i + "=" + Request.Form["option1laag" + i];
-            urlLink += "&Bekleding" + i + "=" + Request.Form["option1laag" + i];
-            urlLink += "&Vulling" + i + "=" + Request.Form["option1laag" + i];
+            urlLink += "&Bekleding" + i + "=" + Request.Form["option2laag" + i];
+            urlLink += "&Vulling" + i + "=" + Request.Form["option3laag" + i];
          
          }
          
@@ -269,7 +269,7 @@
             
 
                 <p><label>Type Niveau decoratie:</label>
-                    <select name ="decoratie" form="test">
+                    <select name ="decoratie">
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
                     }
@@ -277,7 +277,7 @@
                     @Html.ValidationMessage("decoratie") 
                 </p>
                 <p><label>Allergieen:</label>
-                    <select name ="allergieen" form="allergieen" onchange="AllergieAnders(this.value)">
+                    <select name ="allergieen" onchange="AllergieAnders(this.value)">
                     <option value=""></option>
                     <option value="Glutenvrij">Glutenvrij</option>
                     <option value="Geen">Geen</option>
