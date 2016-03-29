@@ -238,12 +238,12 @@
                 
                 <p>
                     <label>Aantal personen:</label>
-                    <input class="allignment" id="aantalPersonenInput" name="aantalP" type="number" onchange="buttonCheck()">
+                    <input id="aantalPersonenInput" name="aantalP" type="number" onchange="buttonCheck()">
                     @Html.ValidationMessage("aantalP")
                 </p>
                     <p>
                     <label>Thema:</label>
-                        <select class="allignment" name ="thema" onchange="ThemaAnders(this.value)">
+                        <select name ="thema" onchange="ThemaAnders(this.value)">
                             <option value=""></option>
                             @foreach(var x in Thema){
                                 <option value="@x">@x</option>
@@ -269,7 +269,7 @@
             
 
                 <p><label>Type Niveau decoratie:</label>
-                    <select class="allignment" name ="decoratie" form="test">
+                    <select name ="decoratie" form="test">
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
                     }
@@ -277,7 +277,7 @@
                     @Html.ValidationMessage("decoratie") 
                 </p>
                 <p><label>Allergieen:</label>
-                    <select class="allignment" name ="allergieen" form="allergieen" onchange="AllergieAnders(this.value)">
+                    <select name ="allergieen" form="allergieen" onchange="AllergieAnders(this.value)">
                     <option value=""></option>
                     <option value="Glutenvrij">Glutenvrij</option>
                     <option value="Geen">Geen</option>
@@ -288,13 +288,13 @@
                 </p>
 
                 <p><label>Gewenste opleverdatum:</label>
-                    <input class="allignment" name="datum" type="date">
+                    <input name="datum" type="date">
                     @Html.ValidationMessage("datum")
                 </p>
                 <p>
                     <label>Opmerkingen:</label></p><br>
             
-                    <textarea class="allignment" name="opmerkingen" rows="4" cols="50"></textarea>
+                    <textarea name="opmerkingen" rows="4" cols="50"></textarea>
                 
             </div>
         </div>
@@ -308,7 +308,7 @@
             <h2>Stap 2: Uw gegevens</h2>
            
             <p><label>Aanhef:</label>
-               <select class="allignment" name ="Aanhef" form="test">
+               <select name ="Aanhef" form="test">
                <option value=""></option>
                <option value="Dhr.">Dhr.</option>
                <option value="Mw">Mw.</option>
@@ -317,17 +317,17 @@
             </p>
 
             <p><label>Naam:</label>
-               <input class="allignment" name="naam" type="text"> 
+               <input name="naam" type="text"> 
                 @Html.ValidationMessage("naam")
             </p>
 
             <p><label>Tel:</label>
-               <input class="allignment" name="tel" type="tel"> 
+               <input name="tel" type="tel"> 
                 @Html.ValidationMessage("tel")
             </p>
 
             <p><label>E-mailadres:</label>
-               <input class="allignment" type="email" name="mail"> 
+               <input type="email" name="mail" style="width: 200px;"> 
                 @Html.ValidationMessage("mail")
             </p>
 
@@ -513,8 +513,9 @@
         function taartVoorbeeld() {
             // haal alles uit de taartdiv
             document.getElementById("taartDiv").innerHTML = "";
-            var percentages = ["100%", "80%", "60%", "40%", "20%"];
- 
+
+            var percentages = ["100%", "90%", "80%", "75%", "65%"];
+
             //voeg alle lagen omgekeert toe zodat ze op elkaar stapelen
             for (var i = currentLaag; i > 0; i--) {
                 var d = document.createElement("div");
@@ -581,8 +582,7 @@
             selectList.name = "option1laag" + currentLaag;
             para.appendChild(selectList);
             selectList.setAttribute('onchange', 'taartVoorbeeld()');
-            
- 
+
             @foreach (var x in  Cake) {
                 @:var option = document.createElement("option");
                 @:option.value = '@x' ;
