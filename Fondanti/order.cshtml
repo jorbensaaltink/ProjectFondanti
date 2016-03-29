@@ -2,38 +2,35 @@
     WebImage photo = null;
     var newFileName = "";
     var imagePath = "";
-         
+    string urlLink =""; 
 
 
     if(IsPost){
 
         // Haalt alle waarden uit de input 
-         var aantalP =  Request.Form["aantalP"];
-         var thema = Request.Form["thema"];
+         urlLink += "?aantalP=" + Request.Form["aantalP"];
+         urlLink += "&thema=" + Request.Form["thema"];
+         urlLink += "&aantalL="+ Request.Form["aantalL"];
          var aantalL = Convert.ToInt32(Request.Form["aantalL"]);
-
-         List<string> CakeLijst = new List<string>();
-         List<string> BekledingLijst = new List<string>();
-         List<string> VullingLijst = new List<string>();
          
          for (int i =1; i<= aantalL; i++){
          
-            CakeLijst.Add(Request.Form["option1laag" + i]);
-            BekledingLijst.Add(Request.Form["option1laag" + i]);
-            VullingLijst.Add(Request.Form["option1laag" + i]);
+            urlLink += "&Cake" + i + "=" + Request.Form["option1laag" + i];
+            urlLink += "&Bekleding" + i + "=" + Request.Form["option1laag" + i];
+            urlLink += "&Vulling" + i + "=" + Request.Form["option1laag" + i];
          
          }
          
-         var niveau =  Request.Form["decoratie"];
-         var allergie = Request.Form["allergieen"];
-         var datum =  Request.Form["datum"];
-         var opmerking =  Request.Form["opmerkingen"];
+         urlLink += "&niveau=" + Request.Form["decoratie"];
+         urlLink += "&allergie=" + Request.Form["allergieen"];
+         urlLink += "&datum=" + Request.Form["datum"];
+         urlLink += "&opmerking=" +  Request.Form["opmerkingen"];
 
-         var aanhef =  Request.Form["Aanhef"];
-         var naam =  Request.Form["naam"];
-         var tel =  Request.Form["tel"];
-         var mail = Request.Form["mail"];
-         var totaalP = Request.Form["totaalP"];
+         urlLink += "&aanhef=" + Request.Form["Aanhef"];
+         urlLink += "&naam=" + Request.Form["naam"];
+         urlLink += "&tel=" + Request.Form["tel"];
+         urlLink += "&mail=" + Request.Form["mail"];
+         urlLink += "&totaalP=" + Request.Form["totaalP"];
 
 
          //Geeft aan dat die imagePath niet kent?
@@ -44,6 +41,8 @@
             Path.GetFileName(photo.FileName);
             imagePath = @"images\" + newFileName;
             photo.Save(@"~\" + imagePath);
+          
+            Response.Redirect("http://jorbensaaltink.nl/confirm.php?");
          }
 
         // Alles voor Validation
@@ -434,7 +433,7 @@
             // Uitrekenen min aantal lagen
             aantalPersonenC = aantalPersonen ;    
 
-            while (aantalPersonenC > 0){
+            while (aantalPersonenC > 0 && maxLaag <5){
                 maxLaag++;
                 aantalPersonenC -= 15;   
 
