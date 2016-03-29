@@ -12,9 +12,9 @@
         Validation.RequireField("naam", "Vul een naam in!");
         Validation.RequireField("tel", "Vul een telefoonnummer in!");
         Validation.RequireField("mail", "Vul een e-mailadres in!");
-        Validation.RequireField("cake", "Selecteer een cake soort!");
-        Validation.RequireField("bekleding", "Selecteer de bekleding!");
-        Validation.RequireField("vulling", "Selecteer een vulling!");
+        Validation.AddFormError("cake", "Selecteer een cake soort!");
+        Validation.AddFormError("bekleding", "Selecteer de bekleding!");
+        Validation.AddFormError("vulling", "Selecteer een vulling!");
         Validation.RequireField("allergieen", "Selecteer een allergie!");
 
 
@@ -500,7 +500,7 @@
         function taartVoorbeeld() {
             // haal alles uit de taartdiv
             document.getElementById("taartDiv").innerHTML = "";
-            var percentages = ["100%", "80%", "60%", "40%", "20%"];
+            var percentages = ["100%", "90%", "80%", "75%", "65%"];
 
             //voeg alle lagen omgekeert toe zodat ze op elkaar stapelen
             for (var i = currentLaag; i > 0; i--) {
@@ -568,7 +568,6 @@
             selectList.name = "option1laag" + currentLaag;
             para.appendChild(selectList);
             selectList.setAttribute('onchange', 'taartVoorbeeld()');
-            
 
             @foreach (var x in  Cake) {
                 @:var option = document.createElement("option");
