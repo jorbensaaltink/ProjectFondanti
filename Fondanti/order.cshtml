@@ -395,8 +395,7 @@
     </p>  
         </div>
     </div>
-
-    <!-- Javascript -->
+     <!-- Javascript -->
     <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="js/fondanti.js"></script>
 	<script>
@@ -409,51 +408,51 @@
       ga('send', 'pageview');
     
     </script>
-
+ 
     <script type="text/javascript">
-
+ 
         // Variabelen
         var currentLaag = 0;
         var aantalPersonen = 0;
         var aantalPersonenC = 0;
         var minLaag =0;
         var maxLaag =0;
-
+ 
         var laagDiv = document.getElementById("laag1");
-
+ 
         // Wanneer geen laag is kan je ook geen laag verwijderen
         function buttonCheck() {
-
+ 
             // zet aantal personen op 0
             aantalPersonenC = 0;
             minLaag =0;
             maxLaag =0;
             aantalPersonen = document.getElementById("aantalPersonenInput").value;
             document.getElementById("aantalPersonenInput").value = aantalPersonen;
-
+ 
             // zodat aantal personen niet in de min kan
             if (aantalPersonen < 0) {
                 aantalPersonen = 0;
             }
-
+ 
             // Uitrekenen max aantal lagen
             aantalPersonenC = aantalPersonen ;    
-
+ 
             while (aantalPersonenC > 0){
                 minLaag++;
                 aantalPersonenC -= 25;   
-
+ 
             }
             
             // Uitrekenen min aantal lagen
             aantalPersonenC = aantalPersonen ;    
-
+ 
             while (aantalPersonenC > 0 && maxLaag <5){
                 maxLaag++;
                 aantalPersonenC -= 15;   
-
+ 
             }
-
+ 
             var element ="";
             var opslag = ["laagButton1", "laagButton2", "laagButton3", "laagButton4", "laagButton5"];
             
@@ -464,7 +463,7 @@
                 element = document.getElementById(opslag[i]);
                 element.style.display = 'none';
             }
-
+ 
             if (minLaag != 0){
             for (var i =minLaag; i <= maxLaag; i++){
             
@@ -473,24 +472,24 @@
             
             }
             }
-
-
+ 
+ 
             while (((currentLaag - 1) * 15) > aantalPersonen) {
                 removeLaag();
             }
-
+ 
             
         }
-
+ 
         //buttoncheck roepen zodat de buttons goed staan
         buttonCheck();
-
+ 
         // remove 1 laag
         function removeLaag() {
             //verwijdert de laatste laag
             var className = "elementsLaag" + currentLaag;
             var className2 = "elementsLaagform" + currentLaag
-
+ 
             var elements = document.getElementsByClassName(className);
             var elements2 = document.getElementsByClassName(className2);
             while (elements.length > 0) {
@@ -499,41 +498,41 @@
             while (elements2.length > 0) {
                 elements2[0].parentNode.removeChild(elements2[0]);
             }
-
+ 
             if (currentLaag > 1) {
                 currentLaag = currentLaag - 1;
             }
-
+ 
             // Refresh zodat taart kleiner word
             taartVoorbeeld();
-
+ 
             //doe een buttoncheck
             buttonCheck();
         }
-
+ 
         function taartVoorbeeld() {
             // haal alles uit de taartdiv
             document.getElementById("taartDiv").innerHTML = "";
             var percentages = ["100%", "80%", "60%", "40%", "20%"];
-
+ 
             //voeg alle lagen omgekeert toe zodat ze op elkaar stapelen
             for (var i = currentLaag; i > 0; i--) {
                 var d = document.createElement("div");
                 var taartDiv = document.getElementById("taartDiv");
                 d.className = "elementsLaag";
                 d.style.width = percentages[i - 1];
-
+ 
                 taartDiv.appendChild(d);
-
+ 
                 for (var j = 0; j < 3; j++) {
                     var p = document.createElement("p");
                     d.appendChild(p);
-
+ 
                     p.textContent = document.getElementById("option" + (j + 1) + "laag" + i).value;
                 }
             }
         }
-
+ 
         // De variabel laag geeft aan hoeveel 
         function setLaag(laag) {
             var amount = currentLaag - laag;
@@ -542,7 +541,7 @@
                     removeLaag();
                 }
             }
-
+ 
             var amount = laag - currentLaag;
             if (laag > currentLaag) {
                 for (var i = 0; i < (amount); i++) {
@@ -550,40 +549,40 @@
                 }
             }
         }
-
+ 
         //voegt een laag toe
         function addLaag() {
             currentLaag = currentLaag + 1;
-
+ 
             //label
             if (currentLaag > 1) {
                 var para = document.createElement("p");
                 laagDiv.appendChild(para);
-
+ 
                 var label = document.createElement("label");
                 label.textContent = "Laag " + currentLaag + ":";
                 label.className = "elementsLaagform" + currentLaag;
                 para.appendChild(label);
             }
-
+ 
             // laag 1
             var para = document.createElement("p");
             para.className = "elementsLaagform" + currentLaag;
             laagDiv.appendChild(para);
-
+ 
             var label = document.createElement("label");
             label.textContent = "Type cake laag " + currentLaag + ":";
             label.className = "elementsLaagform" + currentLaag;
             para.appendChild(label);
-
+ 
             var selectList = document.createElement("select");
-            selectList.className = "allignment";
+            selectList.className = "elementsLaagform" + currentLaag;
             selectList.id = "option1laag" + currentLaag;
             selectList.name = "option1laag" + currentLaag;
             para.appendChild(selectList);
             selectList.setAttribute('onchange', 'taartVoorbeeld()');
             
-
+ 
             @foreach (var x in  Cake) {
                 @:var option = document.createElement("option");
                 @:option.value = '@x' ;
@@ -591,25 +590,25 @@
                 @:option.id = "option1" + currentLaag;
                 @:selectList.appendChild(option);
             }
-
-
+ 
+ 
             //laag 2
             var para = document.createElement("p");
             para.className = "elementsLaagform" + currentLaag;
             laagDiv.appendChild(para);
-
+ 
             var label = document.createElement("label");
             label.textContent = "Type bekleding laag " + currentLaag + ":";
             label.className = "elementsLaagform" + currentLaag;
             para.appendChild(label);
-
+ 
             var selectList = document.createElement("select");
-            selectList.className = "allignment";
+            selectList.className = "elementsLaagform" + currentLaag;
             selectList.id = "option2laag" + currentLaag;
             selectList.name = "option2laag" + currentLaag;
             para.appendChild(selectList);
             selectList.setAttribute('onchange', 'taartVoorbeeld()');
-
+ 
         
             @foreach (var x in  Bekleding) {
                 @:var option = document.createElement("option");
@@ -618,26 +617,26 @@
                 @:option.id = "option2" + currentLaag;
                 @:selectList.appendChild(option);
             }
-
-
-
+ 
+ 
+ 
             //laag 3
             var para = document.createElement("p");
             para.className = "elementsLaagform" + currentLaag;
             laagDiv.appendChild(para);
-
+ 
             var label = document.createElement("label");
             label.textContent = "Type vulling laag " + currentLaag + ":";
             label.className = "elementsLaagform" + currentLaag;
             para.appendChild(label);
-
+ 
             var selectList = document.createElement("select");
-            selectList.className = "allignment";
+            selectList.className = "elementsLaagform" + currentLaag;
             selectList.id = "option3laag" + currentLaag;
             selectList.name = "option3laag" + currentLaag;
             para.appendChild(selectList);
             selectList.setAttribute('onchange', 'taartVoorbeeld()');
-
+ 
             @foreach (var x in  Vulling) {
                 @:var option = document.createElement("option");
                 @:option.value = '@x' ;
@@ -645,19 +644,17 @@
                 @:option.id = "option3" + currentLaag;
                 @:selectList.appendChild(option);
             }
-            
-            document.getElementById("aantalL").value = currentlaag;
-            
+ 
             //doe een buttoncheck
             buttonCheck();
-
+ 
             taartVoorbeeld();
         }
-
+ 
         addLaag();
-
+ 
         // voor het tevoorschijn komen van tekstbox bij optie anders namelijk..
-
+ 
         function ThemaAnders(Waarde) {
             var element = document.getElementById('thema');
             if (Waarde == 'Anders namelijk...') {
@@ -667,7 +664,7 @@
                 element.style.display = 'none';
             }
         }
-
+ 
         function AllergieAnders(Waarde) {
             var element = document.getElementById('allergieen');
             if (Waarde == 'Anders namelijk...') {
