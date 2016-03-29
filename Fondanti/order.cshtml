@@ -2,16 +2,27 @@
     WebImage photo = null;
     var newFileName = "";
     var imagePath = "";
-    string urlLink =""; 
-
+    string urlLink ="";
+    
+    // Variabelen voor mail 
+    var aantalL = 0;
+    var totaalP =0;
 
     if(IsPost){
+
+        // Checkt aantal lagen
+        for (int i =1; i<5; i++)
+        {
+            if (Request.Form["option1laag"+ i] != null)
+            {
+            aantalL++;
+            }
+        }
 
         // Haalt alle waarden uit de input 
          urlLink += "?aantalP=" + Request.Form["aantalP"];
          urlLink += "&thema=" + Request.Form["thema"];
-         urlLink += "&aantalL="+ Request.Form["aantalL"];
-         var aantalL = Convert.ToInt32(Request.Form["aantalL"]);
+         urlLink += "&aantalL=" + aantalL;
          
          for (int i =1; i<= aantalL; i++){
          
@@ -30,7 +41,7 @@
          urlLink += "&naam=" + Request.Form["naam"];
          urlLink += "&tel=" + Request.Form["tel"];
          urlLink += "&mail=" + Request.Form["mail"];
-         urlLink += "&totaalP=" + Request.Form["totaalP"];
+         urlLink += "&totaalP=" + totaalP;
 
 
          //Geeft aan dat die imagePath niet kent?
@@ -42,7 +53,7 @@
             imagePath = @"images\" + newFileName;
             photo.Save(@"~\" + imagePath);
           
-            Response.Redirect("http://jorbensaaltink.nl/confirm.php?");
+            Response.Redirect("http://jorbensaaltink.nl/confirm.php"+ urlLink);
          }
 
         // Alles voor Validation
@@ -317,7 +328,7 @@
             </p>
 
             <p> 
-            <input type="hidden" class="hidden" value="0" name="aantalL" id="aantalL">
+            <input type="number" class="hidden" value="0" name="aantalL" id="aantalL">
 
             <p><label>Inspiratieafbeelding uploaden:</label> 
                 <input type="file" name="Image" /></p>
@@ -630,7 +641,9 @@
                 @:option.id = "option3" + currentLaag;
                 @:selectList.appendChild(option);
             }
-
+            
+            document.getElementById("aantalL").value = currentlaag;
+            
             //doe een buttoncheck
             buttonCheck();
 

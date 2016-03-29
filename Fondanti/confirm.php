@@ -52,7 +52,7 @@
          mail($mail , "Fondanti Order" ,
          "Hierbij uw order bij Fondanti:
          
-         ". $thema ." voor ". $aantalP ."
+         ". $thema ." voor ". $aantalP ." personen
          
          Aantal lagen: ". $aantalL ."
 
