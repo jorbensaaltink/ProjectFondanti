@@ -23,15 +23,15 @@
         Validation.RequireField("mail", "Vul een e-mailadres in!");
         Validation.RequireField("allergieen", "Selecteer een allergie!");
         for(int i=1; i<5; i++){
-            if(Request.Form["option1laag"+i] ==" "){
+            if(Request.Form["option1laag" + i] ==""){
                 Validation.AddFormError("Selecteer een cake soort!");
             }
 
-            if(Request.Form["option2laag"+i] ==" "){
+            if(Request.Form["option2laag"+i] ==""){
                 Validation.AddFormError("Selecteer de bekleding!");
             }
 
-            if(Request.Form["option3laag"+i] ==" "){
+            if(Request.Form["option3laag"+i] ==""){
                 Validation.AddFormError("Selecteer een vulling!");
             }       
             if(Request.Form["thema"]==""){
@@ -581,7 +581,7 @@
                 para.appendChild(label);
             }
  
-            // laag 1
+            //Cake 1
             var para = document.createElement("p");
             para.className = "elementsLaagform" + currentLaag;
             laagDiv.appendChild(para);
@@ -607,7 +607,7 @@
             }
  
  
-            //laag 2
+            //Bekleding 2
             var para = document.createElement("p");
             para.className = "elementsLaagform" + currentLaag;
             laagDiv.appendChild(para);
@@ -635,7 +635,7 @@
  
  
  
-            //laag 3
+            //Vulling 3
             var para = document.createElement("p");
             para.className = "elementsLaagform" + currentLaag;
             laagDiv.appendChild(para);
