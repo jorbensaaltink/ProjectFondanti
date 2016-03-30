@@ -235,66 +235,67 @@
             </div>
             <div class="orderMainForm">
 
-                
-                <p>
-                    <label>Aantal personen:</label>
-                    <input class="allignmentRight" id="aantalPersonenInput" name="aantalP" type="number" onchange="buttonCheck()">
-                    @Html.ValidationMessage("aantalP")
-                </p>
-                    <p>
-                    <label>Thema:</label>
-                        <select class="allignmentRight" name ="thema" onchange="ThemaAnders(this.value)">
+             <table class="orderTable">   
+                <tr>
+                    <td class="tableLabel"><label>Aantal personen:</label></td>
+                    <td><input class="tableInput" id="aantalPersonenInput" name="aantalP" type="number" onchange="buttonCheck()"></td>
+                    <td class="tableValidation">@Html.ValidationMessage("aantalP")</td>
+                </tr>
+                <tr>
+                    <td class="tableLabel"><label>Thema:</label></td>
+                        <td><select class="tableInput" name ="thema" onchange="ThemaAnders(this.value)">
                             <option value=""></option>
                             @foreach(var x in Thema){
                                 <option value="@x">@x</option>
                             }
                         </select> 
-                    @Html.ValidationMessage("thema")
-                    <input type="text" name="thema2" id="thema" style="display: none">
-                    </p>
+                        <input type="text" name="thema2" id="thema" style="display: none"></td>
+                    <td class="tableValidation">@Html.ValidationMessage("thema")</td>
+                </tr>
 
 
 
-                    <div id="laag1">
-                        <p>
+                    <tr id="laag1">
+                        <td>
                             <input type="button" id="laagButton1" class="laagButton" value="1 Laag" onclick="setLaag(1)">
                             <input type="button" id="laagButton2" class="laagButton" value="2 Lagen" onclick="setLaag(2)">
                             <input type="button" id="laagButton3" class="laagButton" value="3 Lagen" onclick="setLaag(3)">
                             <input type="button" id="laagButton4" class="laagButton" value="4 Lagen" onclick="setLaag(4)">
                             <input type="button" id="laagButton5" class="laagButton" value="5 Lagen" onclick="setLaag(5)">
-                        </p>
-                    </div>
+                        </td>
+                    </tr>
 
             
 
-                <p><label>Type Niveau decoratie:</label>
-                    <select class="allignmentRight" name ="decoratie">
+                <tr><td class="tableLabel"><label>Type Niveau decoratie:</label></td>
+                    <td><select class="tableInput" name ="decoratie">
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
                     }
-                    </select> 
-                    @Html.ValidationMessage("decoratie") 
-                </p>
-                <p><label>Allergieen:</label>
-                    <select class="allignmentRight" name ="allergieen" onchange="AllergieAnders(this.value)">
+                    </select></td>
+                    <td class="tableValidation">@Html.ValidationMessage("decoratie")</td> 
+                </tr>
+
+                <tr><td class="tableLabel"><label>Allergieen:</label></td>
+                    <td><select class="tableInput" name ="allergieen" onchange="AllergieAnders(this.value)">
                     <option value=""></option>
                     <option value="Glutenvrij">Glutenvrij</option>
                     <option value="Geen">Geen</option>
                     <option value="Anders namelijk...">Anders namelijk...</option>  
                     </select> 
-                    <input type="text" name="allergieen2" id="allergieen" style="display: none">
-                    @Html.ValidationMessage("allergieen")
-                </p>
+                    <input type="text" name="allergieen2" id="allergieen" style="display: none"></td>
+                    <td class="tableValidation">@Html.ValidationMessage("allergieen")</td>
+                </tr>
 
-                <p><label>Gewenste opleverdatum:</label>
-                    <input class="allignmentRight" name="datum" type="date">
-                    @Html.ValidationMessage("datum")
-                </p>
-                <p>
-                    <label>Opmerkingen:</label></p><br>
+                <tr><td class="tableLabel"><label>Gewenste opleverdatum:</label><td></td>
+                    <td><input class="tableInput" name="datum" type="date"></td>
+                    <td class="tableValidation">@Html.ValidationMessage("datum")</td>
+                </tr>
+                <tr>
+                    <td class="tableLabel"><label>Opmerkingen:</label></td>
             
-                    <textarea class="allignmentRight" name="opmerkingen" rows="4" cols="50"></textarea>
-                
+                    <td><textarea class="tableInput" name="opmerkingen" rows="4" cols="50"></textarea></td>
+                </table>
             </div>
         </div>
         </div></div>
@@ -305,30 +306,31 @@
             
         <div id="Stap2">
             <h2>Stap 2: Uw gegevens</h2>
-           
-            <p><label>Aanhef:</label>
-               <select class="allignmentRight" name ="Aanhef" form="test">
+        <table>
+            <tr><td></label><label>Aanhef:</label></td>
+               <td><select class="allignmentRight" name ="Aanhef" form="test">
                <option value=""></option>
                <option value="Dhr.">Dhr.</option>
                <option value="Mw">Mw.</option>
-               </select> 
-            @Html.ValidationMessage("Aanhef")
-            </p>
+               </select> </td>
+            <td>@Html.ValidationMessage("Aanhef")</td>
+            </tr>
 
-            <p><label>Naam:</label>
-               <input class="allignmentRight" name="naam" type="text"> 
-                @Html.ValidationMessage("naam")
-            </p>
+            <tr><td><label>Naam:</label></td>
+               <td><input class="allignmentRight" name="naam" type="text"></td> 
+                <td>@Html.ValidationMessage("naam")</td>
+            </tr>
 
-            <p><label>Tel:</label>
-               <input class="allignmentRight" name="tel" type="tel"> 
-                @Html.ValidationMessage("tel")
-            </p>
+            <tr><td><label>Tel:</label></td>
+               <td><input class="allignmentRight" name="tel" type="tel"></td> 
+                <td>@Html.ValidationMessage("tel")</td>
+            </tr>
 
-            <p><label>E-mailadres:</label>
-               <input class="allignmentRight" type="email" name="mail"> 
-                @Html.ValidationMessage("mail")
-            </p>
+            <tr><td><label>E-mailadres:</label></td>
+               <td><input class="allignmentRight" type="email" name="mail"></td> 
+                <td>@Html.ValidationMessage("mail")</td>
+            </tr>
+          </table>
 
             <p> 
             <input class="allignmentRight" type="number" class="hidden" value="0" name="aantalL" id="aantalL">
