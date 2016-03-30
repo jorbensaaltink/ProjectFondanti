@@ -215,7 +215,7 @@
             </div>
         </div>
     </div>
-    <form action="" method="post" enctype="multipart/form-data" onsubmit="return Validate()">
+    <form action="" name="Formulier" method="post" enctype="multipart/form-data" onsubmit="return Validate()">
     <div class="content-box" id="wedding-cake-content-box">
         <div class="main-background-image" id="wedding-cake-main-background"><img src="img/bg_wedding_cake.jpg" alt="trouwtaart"/></div>
         <div class="content-center"><div class="adjustment">
@@ -268,7 +268,7 @@
             
 
                 <tr><td class="tableLabel"><label>Type Niveau decoratie:</label></td>
-                    <td><select class="tableInput" name ="decoratie">
+                    <td><select class="tableInput" name ="Decoratie">
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
                     }
@@ -296,6 +296,7 @@
             
                     <td><textarea class="tableInput" name="opmerkingen" rows="4" cols="50"></textarea></td>
                 </table>
+               <p> <div id="totaal" style="background-color: purple; color: white; width: 100px;"></div> </p>
             </div>
         </div>
         </div></div>
@@ -590,6 +591,7 @@
                 @:option.text = '@x'; 
                 @:option.id = "option1" + currentLaag;
                 @:selectList.appendChild(option);
+                @:option.addEventListener("click", totaal);
             }
             function Validate(){
             alert('hallo');
@@ -628,6 +630,7 @@
                 @:option.text = '@x';
                 @:option.id = "option2" + currentLaag;
                 @:selectList.appendChild(option);
+                @:option.addEventListener("click", totaal);
             }
  
  
@@ -655,6 +658,7 @@
                 @:option.text = '@x';
                 @:option.id = "option3" + currentLaag;
                 @:selectList.appendChild(option);
+                @:option.addEventListener("click", totaal);
             }
  
             //doe een buttoncheck
@@ -685,6 +689,246 @@
             else {
                 element.style.display = 'none';
             }
+        }
+        // Totaalprijs
+
+        var optiesD = [];
+        var prijzenD = [];
+        var optiesV = [];
+        var prijzenV = [];
+        var optiesB = [];
+        var prijzenB = [];
+        var optiesC = [];
+        var prijzenC = [];
+
+        @foreach(var d in Decoratie)
+        {
+            @:optiesD.push('@d');
+        }
+
+        @foreach(var v in Vulling)
+        {
+            @:optiesV.push('@v');
+        }
+
+        @foreach(var c in Cake)
+        {
+            @:optiesC.push('@c');
+        }
+
+        @foreach(var b in Bekleding)
+        {
+            @:optiesB.push('@b');
+        }
+
+        @foreach(var dp in SelecteerDecoratie)
+        {
+            @:prijzenD.push('@dp.Prijs');
+        }
+
+        @foreach(var vp in SelecteerVulling)
+        {
+            @:prijzenV.push('@vp.Prijs');
+        }
+
+        @foreach(var cp in SelecteerCake)
+        {
+            @:prijzenC.push('@cp.Prijs');
+        }
+
+        @foreach(var bp in SelecteerBekleding)
+        {
+            @:prijzenB.push('@bp.Prijs');
+        }
+
+        var prijsarray = new Array();
+        prijsarray[""] = 0;
+        for (var z = 0; z < prijzenD.length; z++)
+        {
+            prijsarray[optiesD[z + 1]] = prijzenD[z];
+        }
+
+        for (var y = 0; y < prijzenV.length; y++)
+        {
+            prijsarray[optiesV[y + 1]] = prijzenV[y];
+        }
+
+        for (var q = 0; q < prijzenC.length; q++)
+        {
+            prijsarray[optiesC[q + 1]] = prijzenC[q];
+        }
+
+        for (var w = 0; w < prijzenB.length; w++)
+        {
+            prijsarray[optiesB[w + 1]] = prijzenB[w];
+        }
+
+        function decoratieprijzen()
+        {
+            var decoratieprijs = 0;
+            var formulier = document.forms["Formulier"];
+            var selecteerdecoratie = formulier.elements["Decoratie"];
+            decoratieprijs = prijsarray[selecteerdecoratie.value];
+            return decoratieprijs;
+        }
+
+        function vullingprijzen1()
+        {
+            var vullingprijs = 0;
+            var select = document.getElementById("option3laag" + 1);
+            vullingprijs = prijsarray[select.value];   
+            return vullingprijs;
+        }
+
+        function vullingprijzen2()
+        {
+            var vullingprijs = 0;
+            var select = document.getElementById("option3laag" + 2);
+            vullingprijs = prijsarray[select.value];   
+            return vullingprijs;
+        }
+
+        function vullingprijzen3()
+        {
+            var vullingprijs = 0;
+            var select = document.getElementById("option3laag" + 3);
+            vullingprijs = prijsarray[select.value];   
+            return vullingprijs;
+        }
+
+        function vullingprijzen4()
+        {
+            var vullingprijs = 0;
+            var select = document.getElementById("option3laag" + 4);
+            vullingprijs = prijsarray[select.value];   
+            return vullingprijs;
+        }
+
+        function vullingprijzen5()
+        {
+            var vullingprijs = 0;
+            var select = document.getElementById("option3laag" + 5);
+            vullingprijs = prijsarray[select.value];   
+            return vullingprijs;
+        }
+
+        function bekledingprijzen1()
+        {
+            var bekledingprijs = 0;
+            var select = document.getElementById("option2laag" + 1);
+            bekledingprijs = prijsarray[select.value];   
+            return bekledingprijs; 
+        }
+
+        function bekledingprijzen2()
+        {
+            var bekledingprijs = 0;
+            var select = document.getElementById("option2laag" + 2);
+            bekledingprijs = prijsarray[select.value];   
+            return bekledingprijs; 
+        }
+
+        function bekledingprijzen3()
+        {
+            var bekledingprijs = 0;
+            var select = document.getElementById("option2laag" + 3);
+            bekledingprijs = prijsarray[select.value];   
+            return bekledingprijs; 
+        }
+
+        function bekledingprijzen4()
+        {
+            var bekledingprijs = 0;
+            var select = document.getElementById("option2laag" + 4);
+            bekledingprijs = prijsarray[select.value];   
+            return bekledingprijs; 
+        }
+
+        function bekledingprijzen5()
+        {
+            var bekledingprijs = 0;
+            var select = document.getElementById("option2laag" + 5);
+            bekledingprijs = prijsarray[select.value];   
+            return bekledingprijs; 
+        }
+
+        function cakeprijzen1()
+        {
+            var cakeprijs = 0;
+            var select = document.getElementById("option1laag" + 1);
+            cakeprijs = prijsarray[select.value];            
+            return cakeprijs;
+        }
+
+        function cakeprijzen2()
+        {
+            var cakeprijs = 0;
+            var select = document.getElementById("option1laag" + 2);
+            cakeprijs = prijsarray[select.value];            
+            return cakeprijs;
+        }
+
+        function cakeprijzen3()
+        {
+            var cakeprijs = 0;
+            var select = document.getElementById("option1laag" + 3);
+            cakeprijs = prijsarray[select.value];            
+            return cakeprijs;
+        }
+
+        function cakeprijzen4()
+        {
+            var cakeprijs = 0;
+            var select = document.getElementById("option1laag" + 4);
+            cakeprijs = prijsarray[select.value];            
+            return cakeprijs;
+        }
+
+        function cakeprijzen5()
+        {
+            var cakeprijs = 0;
+            var select = document.getElementById("option1laag" + 5);
+            cakeprijs = prijsarray[select.value];            
+            return cakeprijs;
+        }
+
+        function personenprijs()
+        {
+            var formulier = document.forms["Formulier"];
+            var aantal = formulier.elements["aantalP"];
+            var hoeveel = 0;
+            if (aantalPersonenInput.value != "")
+            {
+                hoeveel = parseInt(aantalPersonenInput.value);
+            }
+            return hoeveel;
+        }
+
+        function totaal()
+        {
+            var totaalprijs = (personenprijs() * vullingprijzen1()) + (personenprijs() * decoratieprijzen()) + (personenprijs() * cakeprijzen1()) + (personenprijs() * bekledingprijzen1());
+
+            if (currentLaag >= 2)
+            {
+               totaalprijs += ((personenprijs() / 2) * vullingprijzen2()) + ((personenprijs() / 2) * cakeprijzen2()) + ((personenprijs() / 2) * bekledingprijzen2());
+            }
+
+            if (currentLaag >= 3)
+            {
+                totaalprijs += ((personenprijs() / 3) * vullingprijzen3()) + ((personenprijs() / 3) * cakeprijzen3()) + ((personenprijs() / 3) * bekledingprijzen3());
+            }
+
+            if (currentLaag >= 4)
+            {
+                totaalprijs += ((personenprijs() / 4) * vullingprijzen4()) + ((personenprijs() / 4) * cakeprijzen4()) + ((personenprijs() / 4) * bekledingprijzen4());
+            }
+
+            if (currentLaag == 5)
+            {
+                totaalprijs += ((personenprijs() / 5) * vullingprijzen5()) + ((personenprijs() / 5) * cakeprijzen5()) + ((personenprijs() / 5) * bekledingprijzen5());
+            }
+            
+            document.getElementById('totaal').innerHTML = "Totaal: " + " € " + totaalprijs.toFixed(2);
         }
 </script>
 </body>
