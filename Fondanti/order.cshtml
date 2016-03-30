@@ -24,21 +24,7 @@
         Validation.RequireField("mail", "Vul een e-mailadres in!");
         Validation.RequireField("allergieen", "Selecteer een allergie!");
         Validation.RequireField("thema", "Selecteer een thema!");
-        Validation.RequireField("selectList.name", "Selecteer een Cake soort");
-
-        for(int i=1; i<5; i++){
-            if(Request.Form["option1laag" + i] ==""){
-                Validation.AddFormError("Selecteer een cake soort!");
-            }
-
-            if(Request.Form["option2laag"+i] ==""){
-                Validation.AddFormError("Selecteer de bekleding!");
-            }
-
-            if(Request.Form["option3laag"+i] ==""){
-                Validation.AddFormError("Selecteer een vulling!");
-            }       
-        }
+        Validation.RequireField("optionId1.", "Selecteer een Cake soort");
 
 
         // Checkt aantal lagen
@@ -229,7 +215,7 @@
             </div>
         </div>
     </div>
-
+    <form action="" method="post" enctype="multipart/form-data" onsubmit="return Validate()">
     <div class="content-box" id="wedding-cake-content-box">
         <div class="main-background-image" id="wedding-cake-main-background"><img src="img/bg_wedding_cake.jpg" alt="trouwtaart"/></div>
         <div class="content-center"><div class="adjustment">
@@ -248,7 +234,7 @@
                 </div>
             </div>
             <div class="orderMainForm">
-                <form action="" method="post" enctype="multipart/form-data">
+
                 
                 <p>
                     <label>Aantal personen:</label>
@@ -257,23 +243,14 @@
                 </p>
                     <p>
                     <label>Thema:</label>
-<<<<<<< HEAD
-                        <select name ="thema" id="thema" onchange="ThemaAnders(this.value)">
-=======
                         <select class="allignmentRight" name ="thema" onchange="ThemaAnders(this.value)">
->>>>>>> 36f4e75dbbec0adf85327277dace54cad4d8e7e9
                             <option value=""></option>
                             @foreach(var x in Thema){
                                 <option value="@x">@x</option>
                             }
                         </select> 
                     @Html.ValidationMessage("thema")
-<<<<<<< HEAD
                     <input type="text" name="thema2" id="thema" style="display: none">
-=======
-                    <input type="text" name="thema" id="thema" style="display: none">
->>>>>>> 36f4e75dbbec0adf85327277dace54cad4d8e7e9
-
                     </p>
 
 
@@ -299,11 +276,7 @@
                     @Html.ValidationMessage("decoratie") 
                 </p>
                 <p><label>Allergieen:</label>
-<<<<<<< HEAD
-                    <select name="allergieen" onchange="AllergieAnders(this.value)">
-=======
                     <select class="allignmentRight" name ="allergieen" onchange="AllergieAnders(this.value)">
->>>>>>> 36f4e75dbbec0adf85327277dace54cad4d8e7e9
                     <option value=""></option>
                     <option value="Glutenvrij">Glutenvrij</option>
                     <option value="Geen">Geen</option>
@@ -605,7 +578,7 @@
             var selectList = document.createElement("select");
             selectList.className = "allignmentRight";
             selectList.id = "option1laag" + currentLaag;
-            selectList.name = "option1laag" + currentLaag;
+           var optionId1= selectList.name = "option1laag" + currentLaag;
             para.appendChild(selectList);
             selectList.setAttribute('onchange', 'taartVoorbeeld()');
 
@@ -617,7 +590,10 @@
                 @:selectList.appendChild(option);
             }
             function Validate(){
+            alert('hallo');
             var objDDl = document.getElementById('selectList.id');
+            console.log(objDDl);
+            console.log(objDDl.value);
             if(objDDl.value == "")
             {
             alert("Please select cake");
