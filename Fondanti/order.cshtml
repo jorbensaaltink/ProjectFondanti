@@ -15,7 +15,6 @@
     if(IsPost){
         // Alles voor Validation
         Validation.RequireField("aantalP", "Vul het aantal personen in!");
-        Validation.RequireField("thema", "Selecteer een thema!");
         Validation.RequireField("decoratie", "Selecteer een decoratie!");
         Validation.RequireField("datum", "Geef de opleverdatum op!");
         Validation.RequireField("Aanhef", "Selecteer een Aanhef!");
@@ -34,8 +33,12 @@
 
             if(Request.Form["option3laag"+i] ==" "){
                 Validation.AddFormError("Selecteer een vulling!");
+            }       
+            if(Request.Form["thema"]==""){
+                Validation.AddFormError("Selecteer een thema!!");
             }
         }
+
 
         // Checkt aantal lagen
         for (int i =1; i<5; i++)
@@ -249,18 +252,19 @@
                 
                 <p>
                     <label>Aantal personen:</label>
-                    <input class="allignmentRight" id="aantalPersonenInput" name="aantalP" type="number" onchange="buttonCheck()">
+                    <input id="aantalPersonenInput" name="aantalP" type="number" onchange="buttonCheck()">
                     @Html.ValidationMessage("aantalP")
                 </p>
                     <p>
                     <label>Thema:</label>
-                        <select class="allignmentRight" name ="thema" onchange="ThemaAnders(this.value)">
+                        <select name ="thema" onchange="ThemaAnders(this.value)">
                             <option value=""></option>
                             @foreach(var x in Thema){
                                 <option value="@x">@x</option>
                             }
                         </select> 
                     @Html.ValidationMessage("thema")
+                        @Html.DropDownList("thema", "")
                     <input type="text" name="thema" id="thema" style="display: none">
 
                     </p>
@@ -280,7 +284,7 @@
             
 
                 <p><label>Type Niveau decoratie:</label>
-                    <select class="allignmentRight" name ="decoratie">
+                    <select name ="decoratie">
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
                     }
@@ -288,7 +292,7 @@
                     @Html.ValidationMessage("decoratie") 
                 </p>
                 <p><label>Allergieen:</label>
-                    <select class="allignmentRight" name ="allergieen" onchange="AllergieAnders(this.value)">
+                    <select name ="allergieen" onchange="AllergieAnders(this.value)">
                     <option value=""></option>
                     <option value="Glutenvrij">Glutenvrij</option>
                     <option value="Geen">Geen</option>
@@ -299,13 +303,13 @@
                 </p>
 
                 <p><label>Gewenste opleverdatum:</label>
-                    <input class="allignmentRight" name="datum" type="date">
+                    <input name="datum" type="date">
                     @Html.ValidationMessage("datum")
                 </p>
                 <p>
                     <label>Opmerkingen:</label></p><br>
             
-                    <textarea class="allignmentRight" name="opmerkingen" rows="4" cols="50"></textarea>
+                    <textarea name="opmerkingen" rows="4" cols="50"></textarea>
                 
             </div>
         </div>
@@ -319,7 +323,7 @@
             <h2>Stap 2: Uw gegevens</h2>
            
             <p><label>Aanhef:</label>
-               <select class="allignmentRight" name ="Aanhef" form="test">
+               <select name ="Aanhef" form="test">
                <option value=""></option>
                <option value="Dhr.">Dhr.</option>
                <option value="Mw">Mw.</option>
@@ -328,17 +332,17 @@
             </p>
 
             <p><label>Naam:</label>
-               <input class="allignmentRight" name="naam" type="text"> 
+               <input name="naam" type="text"> 
                 @Html.ValidationMessage("naam")
             </p>
 
             <p><label>Tel:</label>
-               <input class="allignmentRight" name="tel" type="tel"> 
+               <input name="tel" type="tel"> 
                 @Html.ValidationMessage("tel")
             </p>
 
             <p><label>E-mailadres:</label>
-               <input class="allignmentRight" type="email" name="mail" style="width: 200px;"> 
+               <input type="email" name="mail" style="width: 200px;"> 
                 @Html.ValidationMessage("mail")
             </p>
 
@@ -346,7 +350,7 @@
             <input type="number" class="hidden" value="0" name="aantalL" id="aantalL">
 
             <p><label>Inspiratieafbeelding uploaden:</label> 
-                <input class="allignmentRight" type="file" name="Image" /></p>
+                <input type="file" name="Image" /></p>
                     <br/>
                 <input type="submit" value="Bevestig informatieverzoek">
             </p>
@@ -406,7 +410,7 @@
     </p>  
         </div>
     </div>
-     <!-- Javascript -->
+     <!-- Jaapascript -->
     <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="js/fondanti.js"></script>
 	<script>
@@ -588,7 +592,7 @@
             para.appendChild(label);
  
             var selectList = document.createElement("select");
-            selectList.className = "allignmentRight";
+            selectList.className = "elementsLaagform" + currentLaag;
             selectList.id = "option1laag" + currentLaag;
             selectList.name = "option1laag" + currentLaag;
             para.appendChild(selectList);
@@ -614,7 +618,7 @@
             para.appendChild(label);
  
             var selectList = document.createElement("select");
-            selectList.className = "allignmentRight";
+            selectList.className = "elementsLaagform" + currentLaag;
             selectList.id = "option2laag" + currentLaag;
             selectList.name = "option2laag" + currentLaag;
             para.appendChild(selectList);
@@ -642,7 +646,7 @@
             para.appendChild(label);
  
             var selectList = document.createElement("select");
-            selectList.className = "allignmentRight";
+            selectList.className = "elementsLaagform" + currentLaag;
             selectList.id = "option3laag" + currentLaag;
             selectList.name = "option3laag" + currentLaag;
             para.appendChild(selectList);
