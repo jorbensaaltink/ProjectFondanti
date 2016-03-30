@@ -9,7 +9,11 @@
     var aantalL = 0;
     var totaalP = 0;
 
-    // Alles voor Validation
+
+
+
+    if(IsPost){
+        // Alles voor Validation
         Validation.RequireField("aantalP", "Vul het aantal personen in!");
         Validation.RequireField("thema", "Selecteer een thema!");
         Validation.RequireField("decoratie", "Selecteer een decoratie!");
@@ -18,13 +22,20 @@
         Validation.RequireField("naam", "Vul een naam in!");
         Validation.RequireField("tel", "Vul een telefoonnummer in!");
         Validation.RequireField("mail", "Vul een e-mailadres in!");
-        Validation.RequireField("cake", "Selecteer een cake soort!");
-        Validation.RequireField("bekleding", "Selecteer de bekleding!");
-        Validation.RequireField("vulling", "Selecteer een vulling!");
         Validation.RequireField("allergieen", "Selecteer een allergie!");
+        for(int i=1; i<5; i++){
+            if(Request.Form["option1laag"+i] ==" "){
+                Validation.AddFormError("Selecteer een cake soort!");
+            }
 
+            if(Request.Form["option2laag"+i] ==" "){
+                Validation.AddFormError("Selecteer de bekleding!");
+            }
 
-    if(IsPost){
+            if(Request.Form["option3laag"+i] ==" "){
+                Validation.AddFormError("Selecteer een vulling!");
+            }
+        }
 
         // Checkt aantal lagen
         for (int i =1; i<5; i++)
