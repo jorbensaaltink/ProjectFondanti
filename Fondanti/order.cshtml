@@ -285,7 +285,7 @@
             
 
                 <p><label>Type Niveau decoratie:</label>
-                    <select class="allignmentRight" name ="decoratie">
+                    <select class="allignmentRight" name ="Decoratie" onchange="totaal()">
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
                     }
@@ -309,6 +309,8 @@
                     <label>Opmerkingen:</label></p><br>
             
                     <textarea class="allignmentRight" name="opmerkingen" rows="4" cols="50"></textarea>
+
+                    <div id="totaal" style="background-color: purple; color: white; width: 150px;"></div>
                 
             </div>
         </div>
