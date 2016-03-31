@@ -15,7 +15,6 @@
     if(IsPost){
         // Alles voor Validation
         Validation.RequireField("aantalP", "Vul het aantal personen in!");
-        Validation.RequireField("thema", "Selecteer een thema!");
         Validation.RequireField("decoratie", "Selecteer een decoratie!");
         Validation.RequireField("datum", "Geef de opleverdatum op!");
         Validation.RequireField("Aanhef", "Selecteer een Aanhef!");
@@ -23,19 +22,9 @@
         Validation.RequireField("tel", "Vul een telefoonnummer in!");
         Validation.RequireField("mail", "Vul een e-mailadres in!");
         Validation.RequireField("allergieen", "Selecteer een allergie!");
-        for(int i=1; i<5; i++){
-            if(Request.Form["option1laag" + i] ==""){
-                Validation.AddFormError("Selecteer een cake soort!");
-            }
+        Validation.RequireField("thema", "Selecteer een thema!");
+        Validation.RequireField("optionId1.", "Selecteer een Cake soort");
 
-            if(Request.Form["option2laag"+i] ==""){
-                Validation.AddFormError("Selecteer de bekleding!");
-            }
-
-            if(Request.Form["option3laag"+i] ==""){
-                Validation.AddFormError("Selecteer een vulling!");
-            }
-        }
 
         // Checkt aantal lagen
         for (int i =1; i<5; i++)
@@ -225,7 +214,7 @@
             </div>
         </div>
     </div>
-
+    <form action="" name="Formulier" method="post" enctype="multipart/form-data" onsubmit="return Validate()">
     <div class="content-box" id="wedding-cake-content-box">
         <div class="main-background-image" id="wedding-cake-main-background"><img src="img/bg_wedding_cake.jpg" alt="trouwtaart"/></div>
         <div class="content-center"><div class="adjustment">
@@ -243,70 +232,70 @@
                     </div>
                 </div>
             </div>
-
             <div class="orderMainForm">
-                <form action="" method="post" enctype="multipart/form-data">
-                
-                <p>
-                    <label>Aantal personen:</label>
-                    <input class="allignmentRight" id="aantalPersonenInput" name="aantalP" type="number" onchange="buttonCheck()">
-                    @Html.ValidationMessage("aantalP")
-                </p>
-                    <p>
-                    <label>Thema:</label>
-                        <select class="allignmentRight" name ="thema" onchange="ThemaAnders(this.value)">
+
+             <table class="orderTable">   
+                <tr>
+                    <td class="tableLabel"><label>Aantal personen:</label></td>
+                    <td><input class="tableInput" id="aantalPersonenInput" name="aantalP" type="number" onchange="buttonCheck()"></td>
+                    <td class="tableValidation">@Html.ValidationMessage("aantalP")</td>
+                </tr>
+                <tr>
+                    <td class="tableLabel"><label>Thema:</label></td>
+                        <td><select class="tableInput" name ="thema" onchange="ThemaAnders(this.value)">
                             <option value=""></option>
                             @foreach(var x in Thema){
                                 <option value="@x">@x</option>
                             }
                         </select> 
-                    @Html.ValidationMessage("thema")
-                    <input type="text" name="thema" id="thema" style="display: none">
-
-                    </p>
-
+                        <input type="text" name="thema2" id="thema" style="display: none"></td>
+                    <td class="tableValidation">@Html.ValidationMessage("thema")</td>
+                </tr>
 
 
-                    <div id="laag1">
-                        <p>
+
+                    <tr id="laag1">
+                        <td>
                             <input type="button" id="laagButton1" class="laagButton" value="1 Laag" onclick="setLaag(1)">
                             <input type="button" id="laagButton2" class="laagButton" value="2 Lagen" onclick="setLaag(2)">
                             <input type="button" id="laagButton3" class="laagButton" value="3 Lagen" onclick="setLaag(3)">
                             <input type="button" id="laagButton4" class="laagButton" value="4 Lagen" onclick="setLaag(4)">
                             <input type="button" id="laagButton5" class="laagButton" value="5 Lagen" onclick="setLaag(5)">
-                        </p>
-                    </div>
+                        </td>
+                    </tr>
 
             
 
-                <p><label>Type Niveau decoratie:</label>
-                    <select class="allignmentRight" name ="decoratie">
+                <tr><td class="tableLabel"><label>Type Niveau decoratie:</label></td>
+                    <td><select class="tableInput" name ="Decoratie">
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
                     }
-                    </select> 
-                    @Html.ValidationMessage("decoratie") 
-                </p>
-                <p><label>Allergieen:</label>
-                    <select class="allignmentRight" name ="allergieen" onchange="AllergieAnders(this.value)">
+                    </select></td>
+                    <td class="tableValidation">@Html.ValidationMessage("decoratie")</td> 
+                </tr>
+
+                <tr><td class="tableLabel"><label>Allergieen:</label></td>
+                    <td><select class="tableInput" name ="allergieen" onchange="AllergieAnders(this.value)">
                     <option value=""></option>
                     <option value="Glutenvrij">Glutenvrij</option>
                     <option value="Geen">Geen</option>
                     <option value="Anders namelijk...">Anders namelijk...</option>  
                     </select> 
-                    <input type="text" name="allergieen" id="allergieen" style="display: none">
-                    @Html.ValidationMessage("allergieen")
-                </p>
+                    <input type="text" name="allergieen2" id="allergieen" style="display: none"></td>
+                    <td class="tableValidation">@Html.ValidationMessage("allergieen")</td>
+                </tr>
 
-                <p><label>Gewenste opleverdatum:</label>
-                    <input class="allignmentRight" name="datum" type="date">
-                    @Html.ValidationMessage("datum")
-                </p>
-                <p>
-                    <label>Opmerkingen:</label></p><br>
+                <tr><td class="tableLabel"><label>Gewenste opleverdatum:</label><td></td>
+                    <td><input class="tableInput" name="datum" type="date"></td>
+                    <td class="tableValidation">@Html.ValidationMessage("datum")</td>
+                </tr>
+                <tr>
+                    <td class="tableLabel"><label>Opmerkingen:</label></td>
             
-                    <textarea class="allignmentRight" name="opmerkingen" rows="4" cols="50"></textarea>
-                
+                    <td><textarea class="tableInput" name="opmerkingen" rows="4" cols="50"></textarea></td>
+                </table>
+               <p> <div id="totaal" style="background-color: purple; color: white; width: 100px;"></div> </p>
             </div>
         </div>
         </div></div>
@@ -317,33 +306,34 @@
             
         <div id="Stap2">
             <h2>Stap 2: Uw gegevens</h2>
-           
-            <p><label>Aanhef:</label>
-               <select class="allignmentRight" name ="Aanhef" form="test">
+        <table>
+            <tr><td></label><label>Aanhef:</label></td>
+               <td><select class="allignmentRight" name ="Aanhef" form="test">
                <option value=""></option>
                <option value="Dhr.">Dhr.</option>
                <option value="Mw">Mw.</option>
-               </select> 
-            @Html.ValidationMessage("Aanhef")
-            </p>
+               </select> </td>
+            <td>@Html.ValidationMessage("Aanhef")</td>
+            </tr>
 
-            <p><label>Naam:</label>
-               <input class="allignmentRight" name="naam" type="text"> 
-                @Html.ValidationMessage("naam")
-            </p>
+            <tr><td><label>Naam:</label></td>
+               <td><input class="allignmentRight" name="naam" type="text"></td> 
+                <td>@Html.ValidationMessage("naam")</td>
+            </tr>
 
-            <p><label>Tel:</label>
-               <input class="allignmentRight" name="tel" type="tel"> 
-                @Html.ValidationMessage("tel")
-            </p>
+            <tr><td><label>Tel:</label></td>
+               <td><input class="allignmentRight" name="tel" type="tel"></td> 
+                <td>@Html.ValidationMessage("tel")</td>
+            </tr>
 
-            <p><label>E-mailadres:</label>
-               <input class="allignmentRight" type="email" name="mail" style="width: 200px;"> 
-                @Html.ValidationMessage("mail")
-            </p>
+            <tr><td><label>E-mailadres:</label></td>
+               <td><input class="allignmentRight" type="email" name="mail"></td> 
+                <td>@Html.ValidationMessage("mail")</td>
+            </tr>
+          </table>
 
             <p> 
-            <input type="number" class="hidden" value="0" name="aantalL" id="aantalL">
+            <input class="allignmentRight" type="number" class="hidden" value="0" name="aantalL" id="aantalL">
 
             <p><label>Inspiratieafbeelding uploaden:</label> 
                 <input class="allignmentRight" type="file" name="Image" /></p>
@@ -406,7 +396,7 @@
     </p>  
         </div>
     </div>
-     <!-- Javascript -->
+     <!-- Jaapascript -->
     <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="js/fondanti.js"></script>
 	<script>
@@ -590,7 +580,7 @@
             var selectList = document.createElement("select");
             selectList.className = "allignmentRight";
             selectList.id = "option1laag" + currentLaag;
-            selectList.name = "option1laag" + currentLaag;
+           var optionId1= selectList.name = "option1laag" + currentLaag;
             para.appendChild(selectList);
             selectList.setAttribute('onchange', 'taartVoorbeeld()');
 
@@ -600,8 +590,20 @@
                 @:option.text = '@x'; 
                 @:option.id = "option1" + currentLaag;
                 @:selectList.appendChild(option);
+                @:option.addEventListener("click", totaal);
             }
- 
+            function Validate(){
+            alert('hallo');
+            var objDDl = document.getElementById('selectList.id');
+            console.log(objDDl);
+            console.log(objDDl.value);
+            if(objDDl.value == "")
+            {
+            alert("Please select cake");
+            return false;
+            }
+            return true;
+            }
  
             //Bekleding 2
             var para = document.createElement("p");
@@ -627,6 +629,7 @@
                 @:option.text = '@x';
                 @:option.id = "option2" + currentLaag;
                 @:selectList.appendChild(option);
+                @:option.addEventListener("click", totaal);
             }
  
  
@@ -654,6 +657,7 @@
                 @:option.text = '@x';
                 @:option.id = "option3" + currentLaag;
                 @:selectList.appendChild(option);
+                @:option.addEventListener("click", totaal);
             }
  
             //doe een buttoncheck
@@ -684,6 +688,246 @@
             else {
                 element.style.display = 'none';
             }
+        }
+        // Totaalprijs
+
+        var optiesD = [];
+        var prijzenD = [];
+        var optiesV = [];
+        var prijzenV = [];
+        var optiesB = [];
+        var prijzenB = [];
+        var optiesC = [];
+        var prijzenC = [];
+
+        @foreach(var d in Decoratie)
+        {
+            @:optiesD.push('@d');
+        }
+
+        @foreach(var v in Vulling)
+        {
+            @:optiesV.push('@v');
+        }
+
+        @foreach(var c in Cake)
+        {
+            @:optiesC.push('@c');
+        }
+
+        @foreach(var b in Bekleding)
+        {
+            @:optiesB.push('@b');
+        }
+
+        @foreach(var dp in SelecteerDecoratie)
+        {
+            @:prijzenD.push('@dp.Prijs');
+        }
+
+        @foreach(var vp in SelecteerVulling)
+        {
+            @:prijzenV.push('@vp.Prijs');
+        }
+
+        @foreach(var cp in SelecteerCake)
+        {
+            @:prijzenC.push('@cp.Prijs');
+        }
+
+        @foreach(var bp in SelecteerBekleding)
+        {
+            @:prijzenB.push('@bp.Prijs');
+        }
+
+        var prijsarray = new Array();
+        prijsarray[""] = 0;
+        for (var z = 0; z < prijzenD.length; z++)
+        {
+            prijsarray[optiesD[z + 1]] = prijzenD[z];
+        }
+
+        for (var y = 0; y < prijzenV.length; y++)
+        {
+            prijsarray[optiesV[y + 1]] = prijzenV[y];
+        }
+
+        for (var q = 0; q < prijzenC.length; q++)
+        {
+            prijsarray[optiesC[q + 1]] = prijzenC[q];
+        }
+
+        for (var w = 0; w < prijzenB.length; w++)
+        {
+            prijsarray[optiesB[w + 1]] = prijzenB[w];
+        }
+
+        function decoratieprijzen()
+        {
+            var decoratieprijs = 0;
+            var formulier = document.forms["Formulier"];
+            var selecteerdecoratie = formulier.elements["Decoratie"];
+            decoratieprijs = prijsarray[selecteerdecoratie.value];
+            return decoratieprijs;
+        }
+
+        function vullingprijzen1()
+        {
+            var vullingprijs = 0;
+            var select = document.getElementById("option3laag" + 1);
+            vullingprijs = prijsarray[select.value];   
+            return vullingprijs;
+        }
+
+        function vullingprijzen2()
+        {
+            var vullingprijs = 0;
+            var select = document.getElementById("option3laag" + 2);
+            vullingprijs = prijsarray[select.value];   
+            return vullingprijs;
+        }
+
+        function vullingprijzen3()
+        {
+            var vullingprijs = 0;
+            var select = document.getElementById("option3laag" + 3);
+            vullingprijs = prijsarray[select.value];   
+            return vullingprijs;
+        }
+
+        function vullingprijzen4()
+        {
+            var vullingprijs = 0;
+            var select = document.getElementById("option3laag" + 4);
+            vullingprijs = prijsarray[select.value];   
+            return vullingprijs;
+        }
+
+        function vullingprijzen5()
+        {
+            var vullingprijs = 0;
+            var select = document.getElementById("option3laag" + 5);
+            vullingprijs = prijsarray[select.value];   
+            return vullingprijs;
+        }
+
+        function bekledingprijzen1()
+        {
+            var bekledingprijs = 0;
+            var select = document.getElementById("option2laag" + 1);
+            bekledingprijs = prijsarray[select.value];   
+            return bekledingprijs; 
+        }
+
+        function bekledingprijzen2()
+        {
+            var bekledingprijs = 0;
+            var select = document.getElementById("option2laag" + 2);
+            bekledingprijs = prijsarray[select.value];   
+            return bekledingprijs; 
+        }
+
+        function bekledingprijzen3()
+        {
+            var bekledingprijs = 0;
+            var select = document.getElementById("option2laag" + 3);
+            bekledingprijs = prijsarray[select.value];   
+            return bekledingprijs; 
+        }
+
+        function bekledingprijzen4()
+        {
+            var bekledingprijs = 0;
+            var select = document.getElementById("option2laag" + 4);
+            bekledingprijs = prijsarray[select.value];   
+            return bekledingprijs; 
+        }
+
+        function bekledingprijzen5()
+        {
+            var bekledingprijs = 0;
+            var select = document.getElementById("option2laag" + 5);
+            bekledingprijs = prijsarray[select.value];   
+            return bekledingprijs; 
+        }
+
+        function cakeprijzen1()
+        {
+            var cakeprijs = 0;
+            var select = document.getElementById("option1laag" + 1);
+            cakeprijs = prijsarray[select.value];            
+            return cakeprijs;
+        }
+
+        function cakeprijzen2()
+        {
+            var cakeprijs = 0;
+            var select = document.getElementById("option1laag" + 2);
+            cakeprijs = prijsarray[select.value];            
+            return cakeprijs;
+        }
+
+        function cakeprijzen3()
+        {
+            var cakeprijs = 0;
+            var select = document.getElementById("option1laag" + 3);
+            cakeprijs = prijsarray[select.value];            
+            return cakeprijs;
+        }
+
+        function cakeprijzen4()
+        {
+            var cakeprijs = 0;
+            var select = document.getElementById("option1laag" + 4);
+            cakeprijs = prijsarray[select.value];            
+            return cakeprijs;
+        }
+
+        function cakeprijzen5()
+        {
+            var cakeprijs = 0;
+            var select = document.getElementById("option1laag" + 5);
+            cakeprijs = prijsarray[select.value];            
+            return cakeprijs;
+        }
+
+        function personenprijs()
+        {
+            var formulier = document.forms["Formulier"];
+            var aantal = formulier.elements["aantalP"];
+            var hoeveel = 0;
+            if (aantalPersonenInput.value != "")
+            {
+                hoeveel = parseInt(aantalPersonenInput.value);
+            }
+            return hoeveel;
+        }
+
+        function totaal()
+        {
+            var totaalprijs = (personenprijs() * vullingprijzen1()) + (personenprijs() * decoratieprijzen()) + (personenprijs() * cakeprijzen1()) + (personenprijs() * bekledingprijzen1());
+
+            if (currentLaag >= 2)
+            {
+               totaalprijs += ((personenprijs() / 2) * vullingprijzen2()) + ((personenprijs() / 2) * cakeprijzen2()) + ((personenprijs() / 2) * bekledingprijzen2());
+            }
+
+            if (currentLaag >= 3)
+            {
+                totaalprijs += ((personenprijs() / 3) * vullingprijzen3()) + ((personenprijs() / 3) * cakeprijzen3()) + ((personenprijs() / 3) * bekledingprijzen3());
+            }
+
+            if (currentLaag >= 4)
+            {
+                totaalprijs += ((personenprijs() / 4) * vullingprijzen4()) + ((personenprijs() / 4) * cakeprijzen4()) + ((personenprijs() / 4) * bekledingprijzen4());
+            }
+
+            if (currentLaag == 5)
+            {
+                totaalprijs += ((personenprijs() / 5) * vullingprijzen5()) + ((personenprijs() / 5) * cakeprijzen5()) + ((personenprijs() / 5) * bekledingprijzen5());
+            }
+            
+            document.getElementById('totaal').innerHTML = "Totaal: " + " € " + totaalprijs.toFixed(2);
         }
 </script>
 </body>
