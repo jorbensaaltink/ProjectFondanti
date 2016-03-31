@@ -24,15 +24,14 @@
         totaalP += Request.Form["totaal"];
         // Alles voor Validation
         Validation.RequireField("aantalP", "Vul het aantal personen in!");
+        Validation.RequireField("allergieen", "Selecteer een allergie!");
+        Validation.RequireField("thema", "Selecteer een thema!");
         Validation.RequireField("decoratie", "Selecteer een decoratie!");
         Validation.RequireField("datum", "Geef de opleverdatum op!");
         Validation.RequireField("Aanhef", "Selecteer een Aanhef!");
         Validation.RequireField("naam", "Vul een naam in!");
         Validation.RequireField("tel", "Vul een telefoonnummer in!");
         Validation.RequireField("mail", "Vul een e-mailadres in!");
-        Validation.RequireField("allergieen", "Selecteer een allergie!");
-        Validation.RequireField("thema", "Selecteer een thema!");
-        Validation.RequireField("optionId1.", "Selecteer een Cake soort");
 
         for (int i=1; i<=aantalL; i++)
         {
@@ -246,6 +245,7 @@
             </div>
 
             <div class="orderMainForm">
+
                 <div class="white">@Html.ValidationSummary()</div>
                 <p>
                     <label>Aantal personen:</label>
@@ -260,7 +260,7 @@
                                 <option value="@x">@x</option>
                             }
                         </select> 
-                    <input type="text" name="thema" id="thema" style="display: none">
+                    <input class="allignmentRight2" type="text" name="thema" id="thema" style="display: none">
 
                     </p>
 
@@ -279,7 +279,9 @@
             
 
                 <p><label>Type Niveau decoratie:</label>
+
                     <select class="allignmentRight" name ="Decoratie" onchange="totaal()">
+
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
                     }
@@ -293,7 +295,7 @@
                     <option value="Geen">Geen</option>
                     <option value="Anders namelijk...">Anders namelijk...</option>  
                     </select> 
-                    <input type="text" name="allergieen" id="allergieen" style="display: none">
+                    <input class="allignmentRight2" type="text" name="allergieen" id="allergieen" style="display: none">
                 </p>
 
                 <p><label>Gewenste opleverdatum:</label>
@@ -304,7 +306,10 @@
             
                     <textarea class="allignmentRight" name="opmerkingen" rows="4" cols="50"></textarea>
 
-                    <input type="text" name="totaal" id="totaal" style="background-color: purple; width: 150px;"></div>
+
+                    <input type="text" name="totaal" id="totaal" style="background-color: purple; width: 150px;">
+
+
                 
             </div>
         </div>
@@ -317,29 +322,25 @@
             
         <div id="Stap2">
             <h2>Stap 2: Uw gegevens</h2>
-           
+           <div id="persoonsGegevens">
             <p><label>Aanhef:</label>
                <select class="allignmentRight" name ="Aanhef" form="test">
                <option value=""></option>
                <option value="Dhr.">Dhr.</option>
                <option value="Mw">Mw.</option>
                </select> 
-            @Html.ValidationMessage("Aanhef")
             </p>
 
             <p><label>Naam:</label>
                <input class="allignmentRight" name="naam" type="text"> 
-                @Html.ValidationMessage("naam")
             </p>
 
             <p><label>Tel:</label>
                <input class="allignmentRight" name="tel" type="tel"> 
-                @Html.ValidationMessage("tel")
             </p>
 
             <p><label>E-mailadres:</label>
-               <input class="allignmentRight" type="email" name="mail" style="width: 200px;"> 
-                @Html.ValidationMessage("mail")
+               <input class="allignmentRight" type="email" name="mail"> 
             </p>
 
             <p> 
@@ -350,6 +351,7 @@
                     <br/>
                 <input type="submit" value="Bevestig informatieverzoek">
             </p>
+           </div>
         </div>
         
            
