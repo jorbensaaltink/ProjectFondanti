@@ -251,10 +251,7 @@
             </div>
 
             <div class="orderMainForm">
-<<<<<<< HEAD
-                <form action="" name="Formulier" method="post" enctype="multipart/form-data">
-=======
->>>>>>> 360ac39079f64d4b9f672c66ff704090753003d6
+
                 <div class="white">@Html.ValidationSummary()</div>
                 <p>
                     <label>Aantal personen:</label>
@@ -288,11 +285,9 @@
             
 
                 <p><label>Type Niveau decoratie:</label>
-<<<<<<< HEAD
-                    <select class="allignmentRight" name ="Decoratie">
-=======
+
                     <select class="allignmentRight" name ="Decoratie" onchange="totaal()">
->>>>>>> 360ac39079f64d4b9f672c66ff704090753003d6
+
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
                     }
@@ -316,12 +311,9 @@
                     <label>Opmerkingen:</label></p><br>
             
                     <textarea class="allignmentRight" name="opmerkingen" rows="4" cols="50"></textarea>
-<<<<<<< HEAD
-                    <p><div id="totaal" style="background-color: purple; color:white; width:100px;"></div>  
-=======
 
-                    <div id="totaal" style="background-color: purple; color: white; width: 150px;"></div>
->>>>>>> 360ac39079f64d4b9f672c66ff704090753003d6
+                    <p><div id="totaal" style="background-color: purple; color:white; width:100px;"></div>  
+
                 
             </div>
         </div>
