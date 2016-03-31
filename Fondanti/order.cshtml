@@ -207,8 +207,8 @@
     
     <style type="text/css">
         .grid { margin: 4px; border-collapse: collapse; width: 600px; }
-        .grid th, .grid td { border: 1px solid #C0C0C0; padding: 5px; background-color: rgba(173, 11, 93, 0.8);; color: white; }
-        .head { background-color: rgba(173, 11, 93, 0.8);; font-weight: bold; color: #FFF; }
+        .grid th, .grid td { border: 1px solid #C0C0C0; padding: 5px; background-color: rgba(173, 11, 93, 0.8); color: white; }
+        .head { background-color: rgba(173, 11, 93, 0.8); font-weight: bold; color: #FFF; }
     </style> 
         <link href="~/FondantiStyle.css" rel="stylesheet" type="text/css" />   
 </head>
@@ -322,7 +322,7 @@
             
         <div id="Stap2">
             <h2>Stap 2: Uw gegevens</h2>
-           
+           <div id="persoonsGegevens">
             <p><label>Aanhef:</label>
                <select class="allignmentRight" name ="Aanhef" form="test">
                <option value=""></option>
@@ -343,7 +343,7 @@
             </p>
 
             <p><label>E-mailadres:</label>
-               <input class="allignmentRight" type="email" name="mail" style="width: 200px;"> 
+               <input class="allignmentRight" type="email" name="mail"> 
                 @Html.ValidationMessage("mail")
             </p>
 
@@ -355,6 +355,7 @@
                     <br/>
                 <input type="submit" value="Bevestig informatieverzoek">
             </p>
+           </div>
         </div>
         
            
