@@ -26,15 +26,14 @@
 
         // Alles voor Validation
         Validation.RequireField("aantalP", "Vul het aantal personen in!");
+        Validation.RequireField("allergieen", "Selecteer een allergie!");
+        Validation.RequireField("thema", "Selecteer een thema!");
         Validation.RequireField("decoratie", "Selecteer een decoratie!");
         Validation.RequireField("datum", "Geef de opleverdatum op!");
         Validation.RequireField("Aanhef", "Selecteer een Aanhef!");
         Validation.RequireField("naam", "Vul een naam in!");
         Validation.RequireField("tel", "Vul een telefoonnummer in!");
         Validation.RequireField("mail", "Vul een e-mailadres in!");
-        Validation.RequireField("allergieen", "Selecteer een allergie!");
-        Validation.RequireField("thema", "Selecteer een thema!");
-        Validation.RequireField("optionId1.", "Selecteer een Cake soort");
 
         for (int i=1; i<=aantalL; i++)
         {
@@ -333,22 +332,18 @@
                <option value="Dhr.">Dhr.</option>
                <option value="Mw">Mw.</option>
                </select> 
-            @Html.ValidationMessage("Aanhef")
             </p>
 
             <p><label>Naam:</label>
                <input class="allignmentRight" name="naam" type="text"> 
-                @Html.ValidationMessage("naam")
             </p>
 
             <p><label>Tel:</label>
                <input class="allignmentRight" name="tel" type="tel"> 
-                @Html.ValidationMessage("tel")
             </p>
 
             <p><label>E-mailadres:</label>
                <input class="allignmentRight" type="email" name="mail"> 
-                @Html.ValidationMessage("mail")
             </p>
 
             <p> 
