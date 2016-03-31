@@ -47,6 +47,17 @@ div.taartbox {
     position: relative;
     top: -15px;
 }
+.allignmentRight2{
+    width: 300px;
+    position: relative;
+    right: 100%;
+    left: 21%;
+    
+}
+
+#persoonsGegevens{
+    padding-top: 50px;
+}
 p {
 font-size: 15px;
 line-height: 0px;
