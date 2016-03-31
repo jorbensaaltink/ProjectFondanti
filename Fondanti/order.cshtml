@@ -224,7 +224,7 @@
             </div>
         </div>
     </div>
-    <form action="" name="Formulier" method="post" enctype="multipart/form-data">
+    <form action="" name="Formulier" id="Formulier" method="post" enctype="multipart/form-data">
   
     <div class="content-box" id="wedding-cake-content-box">
         <div class="main-background-image" id="wedding-cake-main-background"><img src="img/bg_wedding_cake.jpg" alt="trouwtaart"/></div>
@@ -280,7 +280,7 @@
 
                 <p><label>Type Niveau decoratie:</label>
 
-                    <select class="allignmentRight" name ="Decoratie" onchange="totaal()">
+                    <select name ="Decoratie" id="Decoratie" class="allignmentRight" onchange="totaal()">
 
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
@@ -306,11 +306,10 @@
             
                     <textarea class="allignmentRight" name="opmerkingen" rows="4" cols="50"></textarea>
 
-
-                    <input type="text" name="totaal" id="totaal" style="background-color: purple; width: 150px;">
-
-
-                
+                <p>
+                    <label>€</label>
+                    <input type="text" name="totaal" id="totaal" style="width: 150px;"> 
+                </p>              
             </div>
         </div>
         </div>
@@ -918,21 +917,14 @@
         function totaal()
         {
             var totaalprijs = (personenprijs() * vullingprijzen1()) + (personenprijs() * cakeprijzen1()) + (personenprijs() * bekledingprijzen1());
-            
-            if (currentLaag == 1)
-            {
-                totaalprijs += (personenprijs() * decoratieprijzen());
-            }
             if (currentLaag == 2)
             {
                 totaalprijs = totaalprijs * 0.6;
-                totaalprijs += (personenprijs() * decoratieprijzen());
                 totaalprijs += ((personenprijs() * 0.4) * vullingprijzen2()) + ((personenprijs() * 0.4) * cakeprijzen2()) + ((personenprijs() * 0.4) * bekledingprijzen2());
             }
 
             if (currentLaag == 3)
             {
-               totaalprijs = totaalprijs * 0.5;
                totaalprijs += (personenprijs() * decoratieprijzen());
                totaalprijs += ((personenprijs() * 0.3) * vullingprijzen2()) + ((personenprijs() * 0.3) * cakeprijzen2()) + ((personenprijs() * 0.3) * bekledingprijzen2());
                totaalprijs += ((personenprijs() * 0.2) * vullingprijzen3()) + ((personenprijs() * 0.2) * cakeprijzen3()) + ((personenprijs() * 0.2) * bekledingprijzen3());
@@ -942,7 +934,6 @@
             if (currentLaag == 4)
             {
                 totaalprijs = totaalprijs * 0.45;
-                totaalprijs += (personenprijs() * decoratieprijzen());
                 totaalprijs += ((personenprijs() * 0.3) * vullingprijzen2()) + ((personenprijs() * 0.3) * cakeprijzen2()) + ((personenprijs() * 0.3) * bekledingprijzen2());
                 totaalprijs += ((personenprijs() * 0.15) * vullingprijzen3()) + ((personenprijs() * 0.15) * cakeprijzen3()) + ((personenprijs() * 0.15) * bekledingprijzen3());
                 totaalprijs += ((personenprijs() * 0.1) * vullingprijzen4()) + ((personenprijs() * 0.1) * cakeprijzen4()) + ((personenprijs() * 0.1) * bekledingprijzen4());
@@ -952,12 +943,12 @@
             if (currentLaag == 5)
             {
                 totaalprijs = totaalprijs * 0.4;
-                totaalprijs += (personenprijs() * decoratieprijzen());
                 totaalprijs += ((personenprijs() * 0.25) * vullingprijzen2()) + ((personenprijs() * 0.25) * cakeprijzen2()) + ((personenprijs() * 0.25) * bekledingprijzen2());
                 totaalprijs += ((personenprijs() * 0.2) * vullingprijzen3()) + ((personenprijs() * 0.2) * cakeprijzen3()) + ((personenprijs() * 0.2) * bekledingprijzen3());
                 totaalprijs += ((personenprijs() * 0.1) * vullingprijzen4()) + ((personenprijs() * 0.1) * cakeprijzen4()) + ((personenprijs() * 0.1) * bekledingprijzen4());
                 totaalprijs += ((personenprijs() * 0.05) * vullingprijzen5()) + ((personenprijs() * 0.05) * cakeprijzen5()) + ((personenprijs() * 0.05) * bekledingprijzen5());                
-            }         
+            }      
+            totaalprijs += decoratieprijzen();
             document.getElementById("totaal").value = totaalprijs.toFixed(2);
         }
 </script>
