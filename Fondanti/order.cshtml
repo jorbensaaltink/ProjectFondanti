@@ -7,14 +7,11 @@
     
     // Variabelen voor mail 
     var aantalL = 0;
-    var totaalP = 0;
-
-
+    var totaalP = "";
 
 
     if(IsPost){
         aantalL=0;
-
         // Checkt aantal lagen
         for (int i =1; i<5; i++)
         {
@@ -24,6 +21,7 @@
             }
         }
 
+        totaalP += Request.Form["totaal"];
         // Alles voor Validation
         Validation.RequireField("aantalP", "Vul het aantal personen in!");
         Validation.RequireField("decoratie", "Selecteer een decoratie!");
@@ -86,10 +84,7 @@
             photo.Save(@"~\" + imagePath);
           
             Response.Redirect("http://jorbensaaltink.nl/confirm.php"+ urlLink);
-         }
-
-        
-  
+         } 
     }
     // Voor de Database
     var db = Database.Open("Fondanti");
@@ -207,8 +202,8 @@
     
     <style type="text/css">
         .grid { margin: 4px; border-collapse: collapse; width: 600px; }
-        .grid th, .grid td { border: 1px solid #C0C0C0; padding: 5px; background-color: rgba(173, 11, 93, 0.8);; color: white; }
-        .head { background-color: rgba(173, 11, 93, 0.8);; font-weight: bold; color: #FFF; }
+        .grid th, .grid td { border: 1px solid #C0C0C0; padding: 5px; background-color: rgba(173, 11, 93, 0.8); color: white; }
+        .head { background-color: rgba(173, 11, 93, 0.8); font-weight: bold; color: #FFF; }
     </style> 
         <link href="~/FondantiStyle.css" rel="stylesheet" type="text/css" />   
 </head>
@@ -254,7 +249,7 @@
                 <div class="white">@Html.ValidationSummary()</div>
                 <p>
                     <label>Aantal personen:</label>
-                    <input class="allignmentRight" id="aantalPersonenInput" value=" @Html.ValidationMessage("aantalP")" name="aantalP" type="number" onchange="buttonCheck()">
+                    <input class="allignmentRight" id="aantalPersonenInput" value="@Html.ValidationMessage("aantalP")" name="aantalP" type="number" onchange="buttonCheck()">
                    
                 </p>
                     <p>
@@ -309,7 +304,7 @@
             
                     <textarea class="allignmentRight" name="opmerkingen" rows="4" cols="50"></textarea>
 
-                    <div id="totaal" style="background-color: purple; color: white; width: 150px;"></div>
+                    <input type="text" name="totaal" id="totaal" style="background-color: purple; width: 150px;"></div>
                 
             </div>
         </div>
@@ -920,29 +915,48 @@
 
         function totaal()
         {
-            var totaalprijs = (personenprijs() * vullingprijzen1()) + (personenprijs() * decoratieprijzen()) + (personenprijs() * cakeprijzen1()) + (personenprijs() * bekledingprijzen1());
-
-            if (currentLaag >= 2)
+            var totaalprijs = (personenprijs() * vullingprijzen1()) + (personenprijs() * cakeprijzen1()) + (personenprijs() * bekledingprijzen1());
+            
+            if (currentLaag == 1)
             {
-               totaalprijs += ((personenprijs() / 2) * vullingprijzen2()) + ((personenprijs() / 2) * cakeprijzen2()) + ((personenprijs() / 2) * bekledingprijzen2());
+                totaalprijs += (personenprijs() * decoratieprijzen());
+            }
+            if (currentLaag == 2)
+            {
+                totaalprijs = totaalprijs * 0.6;
+                totaalprijs += (personenprijs() * decoratieprijzen());
+                totaalprijs += ((personenprijs() * 0.4) * vullingprijzen2()) + ((personenprijs() * 0.4) * cakeprijzen2()) + ((personenprijs() * 0.4) * bekledingprijzen2());
             }
 
-            if (currentLaag >= 3)
+            if (currentLaag == 3)
             {
-                totaalprijs += ((personenprijs() / 3) * vullingprijzen3()) + ((personenprijs() / 3) * cakeprijzen3()) + ((personenprijs() / 3) * bekledingprijzen3());
+               totaalprijs = totaalprijs * 0.5;
+               totaalprijs += (personenprijs() * decoratieprijzen());
+               totaalprijs += ((personenprijs() * 0.3) * vullingprijzen2()) + ((personenprijs() * 0.3) * cakeprijzen2()) + ((personenprijs() * 0.3) * bekledingprijzen2());
+               totaalprijs += ((personenprijs() * 0.2) * vullingprijzen3()) + ((personenprijs() * 0.2) * cakeprijzen3()) + ((personenprijs() * 0.2) * bekledingprijzen3());
             }
 
-            if (currentLaag >= 4)
+
+            if (currentLaag == 4)
             {
-                totaalprijs += ((personenprijs() / 4) * vullingprijzen4()) + ((personenprijs() / 4) * cakeprijzen4()) + ((personenprijs() / 4) * bekledingprijzen4());
+                totaalprijs = totaalprijs * 0.45;
+                totaalprijs += (personenprijs() * decoratieprijzen());
+                totaalprijs += ((personenprijs() * 0.3) * vullingprijzen2()) + ((personenprijs() * 0.3) * cakeprijzen2()) + ((personenprijs() * 0.3) * bekledingprijzen2());
+                totaalprijs += ((personenprijs() * 0.15) * vullingprijzen3()) + ((personenprijs() * 0.15) * cakeprijzen3()) + ((personenprijs() * 0.15) * bekledingprijzen3());
+                totaalprijs += ((personenprijs() * 0.1) * vullingprijzen4()) + ((personenprijs() * 0.1) * cakeprijzen4()) + ((personenprijs() * 0.1) * bekledingprijzen4());
+                
             }
 
             if (currentLaag == 5)
             {
-                totaalprijs += ((personenprijs() / 5) * vullingprijzen5()) + ((personenprijs() / 5) * cakeprijzen5()) + ((personenprijs() / 5) * bekledingprijzen5());
-            }
-            
-            document.getElementById('totaal').innerHTML = "Totaal: " + " € " + totaalprijs.toFixed(2);
+                totaalprijs = totaalprijs * 0.4;
+                totaalprijs += (personenprijs() * decoratieprijzen());
+                totaalprijs += ((personenprijs() * 0.25) * vullingprijzen2()) + ((personenprijs() * 0.25) * cakeprijzen2()) + ((personenprijs() * 0.25) * bekledingprijzen2());
+                totaalprijs += ((personenprijs() * 0.2) * vullingprijzen3()) + ((personenprijs() * 0.2) * cakeprijzen3()) + ((personenprijs() * 0.2) * bekledingprijzen3());
+                totaalprijs += ((personenprijs() * 0.1) * vullingprijzen4()) + ((personenprijs() * 0.1) * cakeprijzen4()) + ((personenprijs() * 0.1) * bekledingprijzen4());
+                totaalprijs += ((personenprijs() * 0.05) * vullingprijzen5()) + ((personenprijs() * 0.05) * cakeprijzen5()) + ((personenprijs() * 0.05) * bekledingprijzen5());                
+            }         
+            document.getElementById("totaal").value = totaalprijs.toFixed(2);
         }
 </script>
 </body>
