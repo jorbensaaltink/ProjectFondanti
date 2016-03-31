@@ -105,6 +105,8 @@ line-height: normal;
 }
 
 .white {
-color: white;
+    color: red;
+    width: 400px;
+    padding: 10px;
 
 }

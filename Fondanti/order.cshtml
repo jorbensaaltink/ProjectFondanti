@@ -251,8 +251,8 @@
             </div>
 
             <div class="orderMainForm">
-                <form action="" method="post" enctype="multipart/form-data">
-                <div class="white">@Html.ValidationSummary()</p>
+                <form action="" name="Formulier" method="post" enctype="multipart/form-data">
+                <div class="white">@Html.ValidationSummary()</div>
                 <p>
                     <label>Aantal personen:</label>
                     <input class="allignmentRight" id="aantalPersonenInput" value=" @Html.ValidationMessage("aantalP")" name="aantalP" type="number" onchange="buttonCheck()">
@@ -285,7 +285,7 @@
             
 
                 <p><label>Type Niveau decoratie:</label>
-                    <select class="allignmentRight" name ="decoratie">
+                    <select class="allignmentRight" name ="Decoratie">
                     @foreach(var x in Decoratie){
                         <option value="@x">@x</option>
                     }
@@ -309,6 +309,7 @@
                     <label>Opmerkingen:</label></p><br>
             
                     <textarea class="allignmentRight" name="opmerkingen" rows="4" cols="50"></textarea>
+                    <p><div id="totaal" style="background-color: purple; color:white; width:100px;"></div>  
                 
             </div>
         </div>
