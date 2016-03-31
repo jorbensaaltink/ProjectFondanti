@@ -36,27 +36,33 @@ div.taartbox {
     padding-top: 100px;
 
 }
-.allignmentLeft{
-    float: left;
+
+#orderTable{
+    margin-top: 20px;
 }
 
-.allignmentRight{
-    float: right;
-    margin-right: 50%;
-    width: 300px;
+table tr{
+    border: 1px;
 }
 
-orderMainForm{
-    
+.tableLabel{
+    background-color: rgba(173, 11, 93, 0.56);
+    min-width: 100px;
+    max-width: 200px;
+    text-align: center;
+    color: #ffffff;
+}
+.tableInput{
+    width: 250px;
+    background-color: rgba(238, 126, 201, 0.52);
+    text-align: center;
+}
+.tableValidation{
+    background-color: rgba(173, 11, 93, 0.56);
+    width: 200px;
+    color: #ffffff;
 }
 
-mainFormLeft{
-    
-}
-
-mainFormRight{
-    
-}
 select{
 
 }
